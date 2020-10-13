@@ -4,7 +4,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"syncthing_exporter/v2/collector"
+
+	"github.com/f100024/syncthing_exporter/collector"
 
 	"github.com/go-kit/kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
@@ -32,14 +33,12 @@ func main() {
 		stURI = kingpin.Flag("st.uri",
 			"HTTP API address of Syncthing node").
 			Default("http://127.0.0.1:8384").
-			Required().
 			Envar("ST_URI").
 			String()
 
 		stToken = kingpin.Flag("st.token",
 			"Token for authentification Syncthing HTTP API").
 			Envar("ST_TOKEN").
-			Required().
 			String()
 
 		stTimeout = kingpin.Flag("st.timeout",
@@ -50,9 +49,11 @@ func main() {
 	)
 
 	promlogConfig := &promlog.Config{}
+
 	kingpin.Version(version.Print(Name))
 	kingpin.CommandLine.HelpFlag.Short('h')
 	kingpin.Parse()
+
 	logger := promlog.New(*&promlogConfig)
 
 	stURL, err := url.Parse(*stURI)
@@ -71,6 +72,7 @@ func main() {
 
 	versionMetric := version.NewCollector(Name)
 	prometheus.MustRegister(versionMetric)
+
 	prometheus.MustRegister(collector.NewSVCReport(logger, httpClient, stURL, stToken))
 	prometheus.MustRegister(collector.NewSCReport(logger, httpClient, stURL, stToken))
 

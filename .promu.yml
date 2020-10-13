@@ -1,0 +1,33 @@
+verbose: true
+go:
+    version: 1.15
+    cgo: false
+repository:
+   path: github.com/f100024/syncthing_exporter
+build:
+    prefix: out/
+    binaries:
+        - name: syncthing_exporter
+    flags: -a -tags netgo
+    ldflags: |
+        -s
+        -X github.com/prometheus/common/version.Version={{.Version}}
+        -X github.com/prometheus/common/version.Revision={{.Revision}}
+        -X github.com/prometheus/common/version.Branch={{.Branch}}
+        -X github.com/prometheus/common/version.BuildUser=local
+        -X 'github.com/prometheus/common/version.BuildDate={{date "02 Jan 2006 15:04:05 MST"}}'
+tarball:
+    prefix: .
+    files:
+        - syncthing_exporter
+        - LICENSE
+        - NOTICE
+crossbuild:
+    platforms:
+        - linux/amd64
+        - linux/386
+        - darwin/amd64
+        - windows/amd64
+        - windows/386
+        - linux/arm
+        - linux/arm64
