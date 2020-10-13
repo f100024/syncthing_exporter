@@ -1,0 +1,50 @@
+{
+    "connections": {
+        "AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA": {
+            "address": "10.1.0.1:59172",
+            "at": "2020-09-18T03:03:32.5024716-07:00",
+            "clientVersion": "v1.10.0",
+            "connected": true,
+            "crypto": "TLS1.3-TLS_AES_128_GCM_SHA256",
+            "inBytesTotal": 1119463078,
+            "outBytesTotal": 16360809260,
+            "paused": false,
+            "type": "tcp-server"
+        },
+        "AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-BBBBBBB": {
+            "address": "10.2.0.2:22000",
+            "at": "2020-09-18T03:03:32.5024716-07:00",
+            "clientVersion": "v1.10.0",
+            "connected": true,
+            "crypto": "TLS1.3-TLS_CHACHA20_POLY1305_SHA256",
+            "inBytesTotal": 10431439,
+            "outBytesTotal": 6072477885,
+            "paused": false,
+            "type": "tcp-client"
+        },
+        "AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-CCCCCCC": {
+            "address": "",
+            "at": "0001-01-01T00:00:00Z",
+            "clientVersion": "",
+            "connected": false,
+            "crypto": "",
+            "inBytesTotal": 0,
+            "outBytesTotal": 0,
+            "paused": false,
+            "type": ""
+        }
+    },
+    "total": {
+        "address": "",
+        "at": "2020-09-18T03:03:32.5024716-07:00",
+        "clientVersion": "",
+        "connected": false,
+        "crypto": "",
+        "inBytesTotal": 2458124935,
+        "outBytesTotal": 33180203458,
+        "paused": false,
+        "type": ""
+    }
+}
+
+    
