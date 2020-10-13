@@ -1,0 +1,86 @@
+{
+    "uniqueID": "d9uZew76",
+    "version": "v1.9.0",
+    "longVersion": "syncthing v1.9.0 \"Fermium Flea\" (go1.15.1 windows-amd64) teamcity@build.syncthing.net 2020-08-28 05:48:25 UTC",
+    "platform": "windows-amd64",
+    "numFolders": 2,
+    "numDevices": 3,
+    "totFiles": 509466,
+    "folderMaxFiles": 484086,
+    "totMiB": 3509532,
+    "folderMaxMiB": 3509430,
+    "memoryUsageMiB": 219,
+    "sha256Perf": 216.93,
+    "hashPerf": 187.47,
+    "memorySize": 8191,
+    "urVersion": 3,
+    "numCPU": 4,
+    "folderUses": {
+        "sendonly": 2,
+        "autoNormalize": 2
+    },
+    "deviceUses": {
+        "compressMetadata": 3,
+        "dynamicAddr": 1,
+        "staticAddr": 2
+    },
+    "announce": {
+        "localEnabled": true,
+        "defaultServersDNS": 1
+    },
+    "relays": {
+        "defaultServers": 1
+    },
+    "upgradeAllowedManual": true,
+    "upgradeAllowedAuto": true,
+    "rescanIntvs": [
+        3600,
+        3600
+    ],
+    "uptime": 1276967,
+    "natType": "Port restricted NAT",
+    "progressEmitterEnabled": true,
+    "customReleaseURL": true,
+    "restartOnWakeup": true,
+    "folderUsesV3": {
+        "conflictsOther": 2,
+        "fsWatcherEnabled": 2,
+        "pullOrder": {
+            "random": 2
+        },
+        "filesystemType": {
+            "basic": 2
+        },
+        "fsWatcherDelays": [
+            10,
+            10
+        ],
+        "modTimeWindowS": [
+            0,
+            0
+        ],
+        "maxConcurrentWrites": [
+            0,
+            0
+        ],
+        "blockPullOrder": {
+            "standard": 2
+        },
+        "copyRangeMethod": {
+            "standard": 2
+        }
+    },
+    "guiStats": {
+        "enabled": 1,
+        "useAuth": 1,
+        "listenUnspecified": 1,
+        "theme": {
+            "dark": 1
+        }
+    },
+    "blockStats": {},
+    "transportStats": {
+        "tcp4": 2
+    },
+    "ignoreStats": {}
+}
