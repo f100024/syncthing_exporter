@@ -1,6 +1,6 @@
 # Syncthing exporter
 
-NEW to this Branch : Docker support
+NEW to this FORK : Docker support
 
 ### Build and run exporter
 
