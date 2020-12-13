@@ -1,5 +1,7 @@
 # Syncthing exporter
 
+NEW to this Branch : Docker support
+
 ### Build and run exporter
 
 Clone current repository and 
@@ -48,6 +50,26 @@ For data obtaining is using two endpoints:
 Example of grafana dashboard:
 
 ![screenshot-1.png](./examples/grafana/screenshot-1.png)
+
+## Docker Support
+
+The following environment variables are supported
+
+Env Variable            | Default               | Description
+------------------------|-----------------------|--------------------------
+ENV WEB_LISTEN_PORT=    | "9112"                | Port to expose telemetry 
+ENV WEB_LISTEN_ADDRESS= | ":${PORT}"            | Address & port to expose telemetry
+ENV WEB_METRIC_PATH     | "/metrics"            | HTTP Path under which to expose telemetry
+ENV ST_URI=             | http://127.0.0.1:8384 | HTTP API address of Syncthing node
+ENV ST_TOKEN            | "123"                 | !Change this! Token for authentification Syncthing HTTP API
+ENV ST_TIMEOUT          | "5s"                  | Timeout for trying to get stats from Syncthing 
+
+To run, simply
+
+    docker run adenau/syncthing-exporter
+
+
+
 
 
 ## Communal effort
