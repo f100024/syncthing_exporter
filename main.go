@@ -59,22 +59,19 @@ func main() {
 	stURL, err := url.Parse(*stURI)
 	if err != nil {
 		_ = level.Error(logger).Log(
-			"msg", "failed to parse es.uri",
+			"msg", "failed to parse stURI",
 			"err", err,
 		)
 		os.Exit(1)
 	}
 
-	// TODO: Add TLS support
-	httpClient := &http.Client{
-		Timeout: *stTimeout,
-	}
+	collector.HttpClient.Timeout = *stTimeout
 
 	versionMetric := version.NewCollector(Name)
 	prometheus.MustRegister(versionMetric)
 
-	prometheus.MustRegister(collector.NewSVCReport(logger, httpClient, stURL, stToken))
-	prometheus.MustRegister(collector.NewSCReport(logger, httpClient, stURL, stToken))
+	prometheus.MustRegister(collector.NewSVCReport(logger, collector.HttpClient, stURL, stToken))
+	prometheus.MustRegister(collector.NewSCReport(logger, collector.HttpClient, stURL, stToken))
 
 	level.Info(logger).Log("msg", "Starting syncthing_exporter", "version", version.Info())
 	level.Info(logger).Log("msg", "Build context", "build_context", version.BuildContext())
