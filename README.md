@@ -1,7 +1,5 @@
 # Syncthing exporter
 
-NEW to this FORK : Docker support
-
 ### Build and run exporter
 
 Clone current repository and 
