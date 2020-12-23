@@ -17,7 +17,7 @@ func TestNewSVCReport(t *testing.T) {
 
 	jsonResponse, err := ioutil.ReadFile("fixtures/rest_svc_report_response.json")
 
-	ts := httptest.NewServer(
+	ts := httptest.NewTLSServer(
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
 				fmt.Fprintln(w, string(jsonResponse))
@@ -81,7 +81,7 @@ func TestNewSVCReport(t *testing.T) {
 	`
 
 	err = testutil.CollectAndCompare(
-		NewSVCReport(logger, &http.Client{}, u, &testToken),
+		NewSVCReport(logger, HttpClient, u, &testToken),
 		strings.NewReader(expected),
 	)
 

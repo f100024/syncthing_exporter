@@ -20,7 +20,7 @@ func TestNewSCReport(t *testing.T) {
 		t.Error("Cant open fixtures file")
 	}
 
-	ts := httptest.NewServer(
+	ts := httptest.NewTLSServer(
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
 				fmt.Fprintln(w, string(jsonResponse))
@@ -76,7 +76,7 @@ func TestNewSCReport(t *testing.T) {
 	syncthing_rest_system_connections_up 1
 	`
 	err = testutil.CollectAndCompare(
-		NewSCReport(logger, &http.Client{}, u, &testToken),
+		NewSCReport(logger, HttpClient, u, &testToken),
 		strings.NewReader(expected),
 	)
 

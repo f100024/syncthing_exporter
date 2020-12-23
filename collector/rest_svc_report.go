@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"path"
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
@@ -203,11 +202,17 @@ func (c *SVCResponse) fetchDataAndDecode() (contract.Report, error) {
 	var chr contract.Report
 
 	u := *c.url
-	u.Path = path.Join(u.Path, "/rest/svc/report")
+	url, _ := u.Parse("/rest/svc/report")
 
-	req, err := http.NewRequest("GET", u.String(), nil)
-	req.Header.Add("X-API-Key", *c.token)
-	res, err := c.client.Do(req)
+	h := make(http.Header)
+	h["X-API-Key"] = []string{*c.token}
+
+	request := &http.Request{
+		URL:    url,
+		Header: h,
+	}
+
+	res, err := c.client.Do(request)
 	if err != nil {
 		return chr, fmt.Errorf("failed to get data from %s://%s:%s%s: %s",
 			u.Scheme, u.Hostname(), u.Port(), u.Path, err)
