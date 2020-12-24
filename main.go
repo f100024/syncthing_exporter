@@ -17,34 +17,35 @@ import (
 
 func main() {
 	var (
-		Name          = "syncthing_exporter"
-		listenAddress = kingpin.Flag("web.listen-address",
-			"Address ot listen on for web interface and telemetry.").
+		Name             = "syncthing_exporter"
+		webListenAddress = kingpin.Flag("web.listen-address",
+			"Address ot listen on for web interface and telemetry. Environment variable: WEB_LISTEN_ADDRESS").
 			Default(":9093").
 			Envar("WEB_LISTEN_ADDRESS").
 			String()
 
-		metricsPath = kingpin.Flag("web.metrics-path",
-			"Path under which to expose metrics").
+		webMetricsPath = kingpin.Flag("web.metrics-path",
+			"Path under which to expose metrics. Environment variable: WEB_METRIC_PATH").
 			Default("/metrics").
 			Envar("WEB_METRIC_PATH").
 			String()
 
-		stURI = kingpin.Flag("st.uri",
-			"HTTP API address of Syncthing node").
-			Default("http://127.0.0.1:8384").
-			Envar("ST_URI").
+		syncthingURI = kingpin.Flag("syncthing.uri",
+			"HTTP API address of Syncthing node (e.g. http://127.0.0.1:8384). Environment variable: SYNCTHING_URI").
+			Required().
+			Envar("SYNCTHING_URI").
 			String()
 
-		stToken = kingpin.Flag("st.token",
-			"Token for authentification Syncthing HTTP API").
-			Envar("ST_TOKEN").
+		syncthingToken = kingpin.Flag("syncthing.token",
+			"Token for authentification Syncthing API. Environment variable: SYNCTHING_TOKEN").
+			Required().
+			Envar("SYNCTHING_TOKEN").
 			String()
 
-		stTimeout = kingpin.Flag("st.timeout",
-			"Timeout for trying to get stats from Syncthing").
+		syncthingTimeout = kingpin.Flag("syncthing.timeout",
+			"Timeout for trying to get stats from Syncthing. Environment variable: SYNCTHING_TIMEOUT").
 			Default("5s").
-			Envar("ST_TIMEOUT").
+			Envar("SYNCTHING_TIMEOUT").
 			Duration()
 	)
 
@@ -56,38 +57,38 @@ func main() {
 
 	logger := promlog.New(*&promlogConfig)
 
-	stURL, err := url.Parse(*stURI)
+	stURL, err := url.Parse(*syncthingURI)
 	if err != nil {
 		_ = level.Error(logger).Log(
-			"msg", "failed to parse stURI",
+			"msg", "failed to parse syncthingURI",
 			"err", err,
 		)
 		os.Exit(1)
 	}
 
-	collector.HttpClient.Timeout = *stTimeout
+	collector.HttpClient.Timeout = *syncthingTimeout
 
 	versionMetric := version.NewCollector(Name)
 	prometheus.MustRegister(versionMetric)
 
-	prometheus.MustRegister(collector.NewSVCReport(logger, collector.HttpClient, stURL, stToken))
-	prometheus.MustRegister(collector.NewSCReport(logger, collector.HttpClient, stURL, stToken))
+	prometheus.MustRegister(collector.NewSVCReport(logger, collector.HttpClient, stURL, syncthingToken))
+	prometheus.MustRegister(collector.NewSCReport(logger, collector.HttpClient, stURL, syncthingToken))
 
 	level.Info(logger).Log("msg", "Starting syncthing_exporter", "version", version.Info())
 	level.Info(logger).Log("msg", "Build context", "build_context", version.BuildContext())
 
-	http.Handle(*metricsPath, promhttp.Handler())
+	http.Handle(*webMetricsPath, promhttp.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(`<html>
 			<head><title>Syncthing Exporter</title></head>
 			<body>
 			<h1>Syncthing Exporter</h1>
-			<p><a href="` + *metricsPath + `">Metrics</a></p>
+			<p><a href="` + *webMetricsPath + `">Metrics</a></p>
 			</body>
 			</html>`))
 	})
 
-	level.Info(logger).Log("msg", "Listening on", "address", *listenAddress)
-	http.ListenAndServe(*listenAddress, nil)
+	level.Info(logger).Log("msg", "Listening on", "address", *webListenAddress)
+	http.ListenAndServe(*webListenAddress, nil)
 
 }

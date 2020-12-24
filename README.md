@@ -30,9 +30,9 @@ Name               | Evironment variable | Required | Description
 -------------------|---------------------|----------|-------------
 web.listen-address | WEB_LISTEN_ADDRESS  |     -    | Address ot listen on for web interface and telemetry  
 web.metrics-path   | WEB_METRIC_PATH     |     -    | Path under which to expose metrics  
-st.uri             | ST_URI              |     +    | HTTP API address of Syncthing node  
-st.token           | ST_TOKEN            |     +    | Token for authentification Syncthing HTTP API
-st.timeout         | ST_TIMEOUT          |     -    | Timeout for trying to get stats from Syncthing
+syncthing.uri      | SYNCTHING_URI       |     +    | HTTP API address of Syncthing node  
+syncthing.token    | SYNCTHING_TOKEN     |     +    | Token for authentification Syncthing HTTP API
+syncthing.timeout  | SYNCTHING_TIMEOUT   |     -    | Timeout for trying to get stats from Syncthing
 
 ### What's and how exported
 
