@@ -1,0 +1,35 @@
+
+name: Make Release
+on:
+  push:
+    paths:
+      - 'VERSION'
+
+jobs:
+  build_release:
+    name: Build release
+    runs-on: ubuntu-18.04
+    env:
+      GOPATH: /home/runner/go
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install promu
+        run:  |
+          mkdir -p $GOPATH
+          wget --quiet https://github.com/prometheus/promu/releases/download/v0.7.0/promu-0.7.0.linux-amd64.tar.gz
+          tar -C $GOPATH -xzf promu-0.7.0.linux-amd64.tar.gz
+
+      - name: Make crossbuild
+        run: make crossbuild
+
+      - name: Make tarballs
+        run: make tarballs
+
+      - name: Upload files to release
+        run: make release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

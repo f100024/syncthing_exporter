@@ -30,6 +30,10 @@ crossbuild: promu
 	@echo ">> cross-building binaries"
 	@$(PROMU) crossbuild
 
+release: promu
+	@echo ">> create release"
+	@$(PROMU) release --verbose --timeout=10 --retry=5 $(BIN_DIR)/.tarballs
+
 promu:
 	@GOOS=$(shell uname -s | tr A-Z a-z) \
 	        GOARCH=$(subst x86_64,amd64,$(patsubst i%86,386,$(shell uname -m))) \
