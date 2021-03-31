@@ -1,5 +1,26 @@
-FROM debian:buster-slim
+FROM quay.io/prometheus/golang-builder:1.16-base as builder
 
-ADD https://github.com/f100024/syncthing_exporter/releases/download/v0.2.1/syncthing_exporter-0.2.1.linux-amd64.tar.gz /syncthing_expoter/
+COPY . /builddir
+WORKDIR /builddir
 
+RUN make build
+
+
+FROM debian:stable-slim
+
+ARG USERNAME=syncthing_exporter_user
+ARG USERGROUP=${USERNAME}
+
+RUN addgroup --system --gid 10001 ${USERGROUP}
+RUN adduser --system --uid 10000 --gid 10001 --home /home/${USERNAME} ${USERNAME}
+
+COPY --from=builder /builddir/syncthing_exporter /usr/bin/syncthing_exporter
+
+WORKDIR /home/${USERNAME}
+RUN chown -R ${USERNAME}:${USERNAME} /usr/bin/syncthing_exporter
+
+USER ${USERNAME}
+
+EXPOSE 9093
+ENTRYPOINT ["syncthing_exporter"] 
 

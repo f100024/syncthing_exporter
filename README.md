@@ -49,25 +49,24 @@ Example of grafana dashboard:
 
 ![screenshot-1.png](./examples/grafana/screenshot-1.png)
 
-## Docker Support
 
-The following environment variables are supported
+## Docker support
+How to run
+```
+docker run -it -e "SYNCTHING_URI=http://127.0.0.1:8384/" -e SYNCTHING_TOKEN="super-secure-token" f100024/syncthing_exporter:latest
+```
 
-Env Variable            | Default               | Description
-------------------------|-----------------------|--------------------------
-ENV WEB_LISTEN_PORT=    | "9112"                | Port to expose telemetry 
-ENV WEB_LISTEN_ADDRESS= | ":${PORT}"            | Address & port to expose telemetry
-ENV WEB_METRIC_PATH     | "/metrics"            | HTTP Path under which to expose telemetry
-ENV ST_URI=             | http://127.0.0.1:8384 | HTTP API address of Syncthing node
-ENV ST_TOKEN            | "123"                 | !Change this! Token for authentification Syncthing HTTP API
-ENV ST_TIMEOUT          | "5s"                  | Timeout for trying to get stats from Syncthing 
-
-To run, simply
-
-    docker run adenau/syncthing-exporter
-
-
-
+docker-compose example:
+```
+  syncthing_exporter:
+    image: f100024/syncthing_exporter:latest
+    ports:
+      - 9093:9093
+    environment:
+      SYNCTHING_URI: "http://127.0.0.1:8384/"
+      SYNCTHING_TOKEN: "super-secure-token"
+    restart: unless-stopped
+```
 
 
 ## Communal effort
