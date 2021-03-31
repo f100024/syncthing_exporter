@@ -1,20 +1,5 @@
-# Dockerfile for Syncthing Exporter
-FROM golang:1.14
+FROM debian:buster-slim
 
-WORKDIR /app
+ADD https://github.com/f100024/syncthing_exporter/releases/download/v0.2.1/syncthing_exporter-0.2.1.linux-amd64.tar.gz /syncthing_expoter/
 
-ENV WEB_LISTEN_PORT="9112"
-ENV WEB_LISTEN_ADDRESS=":${PORT}"
-ENV WEB_METRIC_PATH="/metrics"
-ENV ST_URI="http://127.0.0.1:8384"
-ENV ST_TOKEN="123"
-ENV ST_TIMEOUT="5s"
 
-RUN git clone https://github.com/adenau/syncthing_exporter.git
-
-WORKDIR /app/syncthing_exporter
-
-RUN go build .
-
-CMD ./syncthing_exporter
-EXPOSE ${PORT}
