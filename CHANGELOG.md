@@ -1,3 +1,7 @@
+## 0.2.3 / 2020-03-31
+---
+* Added information about using exporter with docker
+
 ## 0.2.2 / 2020-03-31
 ---
 * Swithched to go 1.16
