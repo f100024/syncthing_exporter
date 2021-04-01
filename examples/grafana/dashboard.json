@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "6.5.3"
+      "version": "7.5.1"
     },
     {
       "type": "panel",
@@ -52,7 +52,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1602516287976,
+  "iteration": 1617261181565,
   "links": [],
   "panels": [
     {
@@ -65,6 +65,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -96,7 +100,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -158,6 +161,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "decmbytes",
       "gauge": {
         "maxValue": 100,
@@ -189,7 +196,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -241,6 +247,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "bytes",
       "gauge": {
         "maxValue": 100,
@@ -272,7 +282,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -324,6 +333,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "decmbytes",
       "gauge": {
         "maxValue": 100,
@@ -355,7 +368,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.5.3",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -409,6 +421,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "bytes",
       "gauge": {
         "maxValue": 100,
@@ -440,7 +456,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -492,6 +507,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -523,7 +542,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -577,6 +595,10 @@
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
       "decimals": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "s",
       "gauge": {
         "maxValue": 100,
@@ -608,7 +630,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -660,6 +681,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -691,7 +716,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -743,6 +767,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -763,10 +791,12 @@
       "mappingType": 1,
       "mappingTypes": [
         {
+          "$$hashKey": "object:305",
           "name": "value to text",
           "value": 1
         },
         {
+          "$$hashKey": "object:306",
           "name": "range to text",
           "value": 2
         }
@@ -774,7 +804,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -809,16 +838,19 @@
       "valueFontSize": "70%",
       "valueMaps": [
         {
+          "$$hashKey": "object:308",
           "op": "=",
           "text": "$myClientLongVersion",
           "value": "1"
         },
         {
+          "$$hashKey": "object:309",
           "op": "=",
           "text": "No data",
           "value": "null"
         },
         {
+          "$$hashKey": "object:310",
           "op": "=",
           "text": "Failed",
           "value": "0"
@@ -832,6 +864,12 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 3,
       "fillGradient": 0,
       "gridPos": {
@@ -855,9 +893,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.5.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -919,6 +958,12 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 3,
       "fillGradient": 0,
       "gridPos": {
@@ -942,9 +987,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.5.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1012,6 +1058,10 @@
         "#299c46"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -1043,7 +1093,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -1100,6 +1149,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -1131,7 +1184,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -1194,6 +1246,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -1214,10 +1270,12 @@
       "mappingType": 1,
       "mappingTypes": [
         {
+          "$$hashKey": "object:141",
           "name": "value to text",
           "value": 1
         },
         {
+          "$$hashKey": "object:142",
           "name": "range to text",
           "value": 2
         }
@@ -1225,7 +1283,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -1248,7 +1305,9 @@
       "tableColumn": "",
       "targets": [
         {
+          "exemplar": true,
           "expr": "syncthing_rest_system_connections_remote_device_connection_info{deviceID=\"$deviceID\"}",
+          "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
@@ -1261,11 +1320,13 @@
       "valueFontSize": "80%",
       "valueMaps": [
         {
+          "$$hashKey": "object:144",
           "op": "=",
           "text": "$clientVersion",
           "value": "1"
         },
         {
+          "$$hashKey": "object:145",
           "op": "=",
           "text": "No data",
           "value": "0"
@@ -1283,6 +1344,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -1303,10 +1368,12 @@
       "mappingType": 1,
       "mappingTypes": [
         {
+          "$$hashKey": "object:249",
           "name": "value to text",
           "value": 1
         },
         {
+          "$$hashKey": "object:250",
           "name": "range to text",
           "value": 2
         }
@@ -1314,7 +1381,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -1337,7 +1403,10 @@
       "tableColumn": "",
       "targets": [
         {
+          "exemplar": true,
           "expr": "syncthing_rest_system_connections_remote_device_connection_info{deviceID=\"$deviceID\"}",
+          "interval": "",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -1349,11 +1418,13 @@
       "valueFontSize": "50%",
       "valueMaps": [
         {
+          "$$hashKey": "object:252",
           "op": "=",
           "text": "$crypto",
           "value": "1"
         },
         {
+          "$$hashKey": "object:253",
           "op": "=",
           "text": "No data",
           "value": "0"
@@ -1371,6 +1442,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "bytes",
       "gauge": {
         "maxValue": 100,
@@ -1402,7 +1477,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -1454,6 +1528,10 @@
         "#d44a3a"
       ],
       "datasource": "${DS_PROMETHEUS-LOCAL}",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "format": "bytes",
       "gauge": {
         "maxValue": 100,
@@ -1485,7 +1563,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -1528,7 +1605,7 @@
       "valueName": "current"
     }
   ],
-  "schemaVersion": 21,
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1538,13 +1615,18 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS-LOCAL}",
         "definition": "syncthing_rest_system_connections_remote_device_connection_info",
+        "description": null,
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "deviceID",
         "multi": false,
         "name": "deviceID",
         "options": [],
-        "query": "syncthing_rest_system_connections_remote_device_connection_info",
+        "query": {
+          "query": "syncthing_rest_system_connections_remote_device_connection_info",
+          "refId": "Prometheus-Local-deviceID-Variable-Query"
+        },
         "refresh": 1,
         "regex": "/.*deviceID=\"([^\"]*).*/",
         "skipUrlSync": false,
@@ -1560,14 +1642,19 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS-LOCAL}",
         "definition": "syncthing_rest_system_connections_remote_device_connection_info",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": null,
         "multi": false,
         "name": "clientVersion",
         "options": [],
-        "query": "syncthing_rest_system_connections_remote_device_connection_info",
-        "refresh": 1,
+        "query": {
+          "query": "syncthing_rest_system_connections_remote_device_connection_info",
+          "refId": "Prometheus-Local-clientVersion-Variable-Query"
+        },
+        "refresh": 2,
         "regex": "/.*clientVersion=\"([^\"]*).*/",
         "skipUrlSync": false,
         "sort": 0,
@@ -1582,14 +1669,19 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS-LOCAL}",
         "definition": "syncthing_rest_system_connections_remote_device_connection_info",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": "crypto",
         "multi": false,
         "name": "crypto",
         "options": [],
-        "query": "syncthing_rest_system_connections_remote_device_connection_info",
-        "refresh": 1,
+        "query": {
+          "query": "syncthing_rest_system_connections_remote_device_connection_info",
+          "refId": "Prometheus-Local-crypto-Variable-Query"
+        },
+        "refresh": 2,
         "regex": "/.*crypto=\"([^\"]*).*/",
         "skipUrlSync": false,
         "sort": 0,
@@ -1604,14 +1696,19 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS-LOCAL}",
         "definition": "syncthing_rest_svc_report_node_info",
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": "myClientLongVersion",
         "multi": false,
         "name": "myClientLongVersion",
         "options": [],
-        "query": "syncthing_rest_svc_report_node_info",
-        "refresh": 1,
+        "query": {
+          "query": "syncthing_rest_svc_report_node_info",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 2,
         "regex": "/.*longVersion=\"([^,]*)\".*/",
         "skipUrlSync": false,
         "sort": 0,
@@ -1644,5 +1741,5 @@
   "timezone": "",
   "title": "Syncthing Exporter",
   "uid": "OA3L4J5Mz",
-  "version": 44
+  "version": 48
 }
