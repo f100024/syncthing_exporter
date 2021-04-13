@@ -1,3 +1,8 @@
+## 0.2.4 / 2020-03-31
+---
+* Added support /rest/stats/device
+* Minor refactoring
+
 ## 0.2.3 / 2020-03-31
 ---
 * Added information about using exporter with docker
@@ -11,7 +16,7 @@
 ---
 * Added CI Github actions
 * Environment variables renamed and clarified
-* Added required flag to start paramaeters
+* Added required flag to start parameters
 
 ## 0.1.0 / 2020-10-14
 ---

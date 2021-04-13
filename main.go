@@ -73,6 +73,7 @@ func main() {
 
 	prometheus.MustRegister(collector.NewSVCReport(logger, collector.HttpClient, stURL, syncthingToken))
 	prometheus.MustRegister(collector.NewSCReport(logger, collector.HttpClient, stURL, syncthingToken))
+	prometheus.MustRegister(collector.NewStatsDeviceReport(logger, collector.HttpClient, stURL, syncthingToken))
 
 	level.Info(logger).Log("msg", "Starting syncthing_exporter", "version", version.Info())
 	level.Info(logger).Log("msg", "Build context", "build_context", version.BuildContext())
