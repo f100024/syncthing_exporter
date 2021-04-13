@@ -12,10 +12,6 @@ import (
 	"github.com/syncthing/syncthing/lib/ur/contract"
 )
 
-const (
-	namespace = "syncthing"
-)
-
 type svcMetric struct {
 	Type  prometheus.ValueType
 	Desc  *prometheus.Desc

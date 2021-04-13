@@ -11,10 +11,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
-const (
-	subsystem = "rest_system_connections"
-)
-
 // SCResponseBoolMetrics defines struct for boolean metrics
 type SCResponseBoolMetrics struct {
 	Type  prometheus.ValueType
@@ -59,6 +55,8 @@ func bool2float64(status bool) float64 {
 
 // NewSCReport returns a new Collector exposing SVCResponse
 func NewSCReport(logger log.Logger, client *http.Client, url *url.URL, token *string) *SCResponse {
+	subsystem := "rest_system_connections"
+
 	return &SCResponse{
 		logger: logger,
 		client: client,
