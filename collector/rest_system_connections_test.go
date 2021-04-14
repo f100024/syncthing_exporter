@@ -35,7 +35,7 @@ func TestNewSCReport(t *testing.T) {
 	}
 
 	promlogConfig := &promlog.Config{}
-	logger := promlog.New(*&promlogConfig)
+	logger := promlog.New(promlogConfig)
 
 	testToken := "12345"
 	expected := `

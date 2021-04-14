@@ -34,7 +34,7 @@ type SCResponseTotalNumericalMetrics struct {
 
 // SCResponse defines collector struct.
 type SCResponse struct {
-	logger log.Logger
+	logger *log.Logger
 	client *http.Client
 	url    *url.URL
 	token  *string
@@ -46,19 +46,12 @@ type SCResponse struct {
 	totalNumericalMetrics           map[string]*SCResponseTotalNumericalMetrics
 }
 
-func bool2float64(status bool) float64 {
-	if status == true {
-		return float64(1)
-	}
-	return float64(0)
-}
-
 // NewSCReport returns a new Collector exposing SVCResponse
 func NewSCReport(logger log.Logger, client *http.Client, url *url.URL, token *string) *SCResponse {
 	subsystem := "rest_system_connections"
 
 	return &SCResponse{
-		logger: logger,
+		logger: &logger,
 		client: client,
 		url:    url,
 		token:  token,
@@ -193,7 +186,7 @@ func (c *SCResponse) fetchDataAndDecode() (SystemConnectionsResponse, error) {
 	defer func() {
 		err = res.Body.Close()
 		if err != nil {
-			_ = level.Warn(c.logger).Log("msg", "failed to close http.Client", "err", err)
+			level.Warn(*c.logger).Log("msg", "failed to close http.Client", "err", err)
 		}
 	}()
 
@@ -224,7 +217,7 @@ func (c *SCResponse) Collect(ch chan<- prometheus.Metric) {
 	SCResponse, err := c.fetchDataAndDecode()
 	if err != nil {
 		c.up.Set(0)
-		_ = level.Warn(c.logger).Log(
+		level.Warn(*c.logger).Log(
 			"msg", "failed to fetch and decode data",
 			"err", err,
 		)

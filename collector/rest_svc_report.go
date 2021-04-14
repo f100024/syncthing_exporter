@@ -26,7 +26,7 @@ type svcData struct {
 
 // SVCResponse defines collector struct.
 type SVCResponse struct {
-	logger log.Logger
+	logger *log.Logger
 	client *http.Client
 	url    *url.URL
 	token  *string
@@ -42,7 +42,7 @@ func NewSVCReport(logger log.Logger, client *http.Client, url *url.URL, token *s
 	subsystem := "rest_svc_report"
 
 	return &SVCResponse{
-		logger: logger,
+		logger: &logger,
 		client: client,
 		url:    url,
 		token:  token,
@@ -217,7 +217,7 @@ func (c *SVCResponse) fetchDataAndDecode() (contract.Report, error) {
 	defer func() {
 		err = res.Body.Close()
 		if err != nil {
-			_ = level.Warn(c.logger).Log("msg", "failed to close http.Client", "err", err)
+			_ = level.Warn(*c.logger).Log("msg", "failed to close http.Client", "err", err)
 		}
 	}()
 
@@ -246,7 +246,7 @@ func (c *SVCResponse) Collect(ch chan<- prometheus.Metric) {
 	SVCResp, err := c.fetchDataAndDecode()
 	if err != nil {
 		c.up.Set(0)
-		_ = level.Warn(c.logger).Log(
+		_ = level.Warn(*c.logger).Log(
 			"msg", "failed to fetch and decode data",
 			"err", err,
 		)

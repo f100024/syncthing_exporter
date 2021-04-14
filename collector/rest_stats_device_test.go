@@ -15,7 +15,7 @@ import (
 
 func TestNewStatsDeviceReport(t *testing.T) {
 
-	jsonResponse, err := ioutil.ReadFile("fixtures/rest_stats_device_response.json")
+	jsonResponse, _ := ioutil.ReadFile("fixtures/rest_stats_device_response.json")
 
 	ts := httptest.NewTLSServer(
 		http.HandlerFunc(
@@ -32,7 +32,7 @@ func TestNewStatsDeviceReport(t *testing.T) {
 	}
 
 	promlogConfig := &promlog.Config{}
-	logger := promlog.New(*&promlogConfig)
+	logger := promlog.New(promlogConfig)
 
 	testToken := "12345"
 	expected := `

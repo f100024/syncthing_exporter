@@ -19,3 +19,10 @@ var (
 		},
 	}
 )
+
+func bool2float64(status bool) float64 {
+	if status {
+		return float64(1)
+	}
+	return float64(0)
+}
