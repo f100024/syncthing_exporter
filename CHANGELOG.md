@@ -1,9 +1,9 @@
-## 0.3.0 / 2020-04-14
+## 0.3.0 / 2020-04-15
 ---
 * Added support /rest/db/status
 * Fixed logging
+* Updated grafana dashboard
 * Refactoring
-* TODO: Update grafana dashboard
 
 ## 0.2.4 / 2020-04-13
 ---
