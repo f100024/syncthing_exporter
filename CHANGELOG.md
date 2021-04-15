@@ -1,20 +1,20 @@
-## 0.3.0 / 2020-04-15
+## 0.3.0 / 2021-04-15
 ---
 * Added support /rest/db/status
 * Fixed logging
 * Updated grafana dashboard
 * Refactoring
 
-## 0.2.4 / 2020-04-13
+## 0.2.4 / 2021-04-13
 ---
 * Added support /rest/stats/device
 * Minor refactoring
 
-## 0.2.3 / 2020-03-31
+## 0.2.3 / 2021-03-31
 ---
 * Added information about using exporter with docker
 
-## 0.2.2 / 2020-03-31
+## 0.2.2 / 2021-03-31
 ---
 * Swithched to go 1.16
 * Update some dependencies
