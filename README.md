@@ -42,9 +42,9 @@ Example of all metrics related to `syncthing` [here](examples/exposed_parameters
 For data obtaining is using two endpoints:
 
 [GET /rest/svc/report](https://docs.syncthing.net/rest/svc-report-get.html)  
-[GET /rest/system/connections](https://docs.syncthing.net/rest/system-connections-get.html) 
-[GET /rest/stats/device](https://docs.syncthing.net/rest/stats-device-get.html) 
-[GET /rest/db/status](https://docs.syncthing.net/rest/db-status-get.html)*
+[GET /rest/system/connections](https://docs.syncthing.net/rest/system-connections-get.html)  
+[GET /rest/stats/device](https://docs.syncthing.net/rest/stats-device-get.html)  
+[GET /rest/db/status](https://docs.syncthing.net/rest/db-status-get.html)*  
 
 >\* This is an expensive call, increasing CPU and RAM usage on the device. Use sparingly.
 
