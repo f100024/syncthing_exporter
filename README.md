@@ -26,13 +26,14 @@ Basic prometheus configuration:
 
 ### Start flags
 
-Name               | Evironment variable | Required | Description
--------------------|---------------------|----------|-------------
-web.listen-address | WEB_LISTEN_ADDRESS  |     -    | Address ot listen on for web interface and telemetry  
-web.metrics-path   | WEB_METRIC_PATH     |     -    | Path under which to expose metrics  
-syncthing.uri      | SYNCTHING_URI       |     +    | HTTP API address of Syncthing node  
-syncthing.token    | SYNCTHING_TOKEN     |     +    | Token for authentification Syncthing HTTP API
-syncthing.timeout  | SYNCTHING_TIMEOUT   |     -    | Timeout for trying to get stats from Syncthing
+Name                | Evironment variable | Required | Description
+--------------------|---------------------|----------|-------------
+web.listen-address  | WEB_LISTEN_ADDRESS  |     -    | Address ot listen on for web interface and telemetry  
+web.metrics-path    | WEB_METRIC_PATH     |     -    | Path under which to expose metrics  
+syncthing.uri       | SYNCTHING_URI       |     +    | HTTP API address of Syncthing node  
+syncthing.token     | SYNCTHING_TOKEN     |     +    | Token for authentification Syncthing HTTP API
+syncthing.timeout   | SYNCTHING_TIMEOUT   |     -    | Timeout for trying to get stats from Syncthing
+syncthing.foldersid | SYNCTHING_FOLDERSID |     -    | List of ids of folders, delimeter is ','
 
 ### What's and how exported
 
@@ -41,8 +42,11 @@ Example of all metrics related to `syncthing` [here](examples/exposed_parameters
 For data obtaining is using two endpoints:
 
 [GET /rest/svc/report](https://docs.syncthing.net/rest/svc-report-get.html)  
-[GET /rest/system/connections](https://docs.syncthing.net/rest/system-connections-get.html)
-[GET /rest/stats/device](https://docs.syncthing.net/rest/stats-device-get.html)
+[GET /rest/system/connections](https://docs.syncthing.net/rest/system-connections-get.html)  
+[GET /rest/stats/device](https://docs.syncthing.net/rest/stats-device-get.html)  
+[GET /rest/db/status](https://docs.syncthing.net/rest/db-status-get.html)*  
+
+>\* This is an expensive call, increasing CPU and RAM usage on the device. Use sparingly.
 
 ### Grafana dashboard
 

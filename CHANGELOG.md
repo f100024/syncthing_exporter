@@ -1,4 +1,11 @@
-## 0.2.4 / 2020-03-31
+## 0.3.0 / 2020-04-15
+---
+* Added support /rest/db/status
+* Fixed logging
+* Updated grafana dashboard
+* Refactoring
+
+## 0.2.4 / 2020-04-13
 ---
 * Added support /rest/stats/device
 * Minor refactoring

@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 
 	"github.com/f100024/syncthing_exporter/collector"
 
@@ -47,6 +48,10 @@ func main() {
 			Default("5s").
 			Envar("SYNCTHING_TIMEOUT").
 			Duration()
+		syncthingFoldersID = kingpin.Flag("syncthing.foldersid",
+			"ID of folders for getting db status. Environment variable: SYNCTHING_FOLDERSID").
+			Envar("SYNCTHING_FOLDERSID").
+			String()
 	)
 
 	promlogConfig := &promlog.Config{}
@@ -55,7 +60,7 @@ func main() {
 	kingpin.CommandLine.HelpFlag.Short('h')
 	kingpin.Parse()
 
-	logger := promlog.New(*&promlogConfig)
+	logger := promlog.New(promlogConfig)
 
 	stURL, err := url.Parse(*syncthingURI)
 	if err != nil {
@@ -74,6 +79,17 @@ func main() {
 	prometheus.MustRegister(collector.NewSVCReport(logger, collector.HttpClient, stURL, syncthingToken))
 	prometheus.MustRegister(collector.NewSCReport(logger, collector.HttpClient, stURL, syncthingToken))
 	prometheus.MustRegister(collector.NewStatsDeviceReport(logger, collector.HttpClient, stURL, syncthingToken))
+	if *syncthingFoldersID != "" {
+		foldersIDList := func(s *string) *[]string {
+			var list []string
+			splittedList := strings.Split(*s, ",")
+			for folderid := range splittedList {
+				list = append(list, strings.TrimSpace(splittedList[folderid]))
+			}
+			return &list
+		}
+		prometheus.MustRegister(collector.NewDBStatusReport(logger, collector.HttpClient, stURL, syncthingToken, foldersIDList(syncthingFoldersID)))
+	}
 
 	level.Info(logger).Log("msg", "Starting syncthing_exporter", "version", version.Info())
 	level.Info(logger).Log("msg", "Build context", "build_context", version.BuildContext())

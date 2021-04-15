@@ -20,7 +20,7 @@ type StatsDeviceResponseNumericalMetrics struct {
 
 // SDResponse defines collector struct.
 type StatsDeviceResponse struct {
-	logger log.Logger
+	logger *log.Logger
 	client *http.Client
 	url    *url.URL
 	token  *string
@@ -35,7 +35,7 @@ func NewStatsDeviceReport(logger log.Logger, client *http.Client, url *url.URL, 
 	subsystem := "rest_stats_device"
 
 	return &StatsDeviceResponse{
-		logger: logger,
+		logger: &logger,
 		client: client,
 		url:    url,
 		token:  token,
@@ -103,7 +103,7 @@ func (c *StatsDeviceResponse) fetchDataAndDecode() (map[string]interface{}, erro
 	defer func() {
 		err = res.Body.Close()
 		if err != nil {
-			_ = level.Warn(c.logger).Log("msg", "failed to close http.Client", "err", err)
+			_ = level.Warn(*c.logger).Log("msg", "failed to close http.Client", "err", err)
 		}
 	}()
 
@@ -133,7 +133,7 @@ func (c *StatsDeviceResponse) Collect(ch chan<- prometheus.Metric) {
 	statsDeviceResponse, err := c.fetchDataAndDecode()
 	if err != nil {
 		c.up.Set(0)
-		_ = level.Warn(c.logger).Log(
+		_ = level.Warn(*c.logger).Log(
 			"msg", "failed to fetch and decode data",
 			"err", err,
 		)
