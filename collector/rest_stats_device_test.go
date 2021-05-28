@@ -41,9 +41,14 @@ func TestNewStatsDeviceReport(t *testing.T) {
 	syncthing_rest_stats_device_json_parse_failures 0
 	# HELP syncthing_rest_stats_device_last_connection_duration Duration of last connection with remote device in seconds.
 	# TYPE syncthing_rest_stats_device_last_connection_duration gauge
-	syncthing_rest_stats_device_last_connection_duration{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA",lastSeen="2077-12-18T00:00:50.3810375-08:00"} 0
-	syncthing_rest_stats_device_last_connection_duration{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-BBBBBBB",lastSeen="2077-04-13T04:50:25-07:00"} 819990.3432191
-	syncthing_rest_stats_device_last_connection_duration{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-CCCCCCC",lastSeen="1984-12-31T16:00:00-08:00"} 0
+	syncthing_rest_stats_device_last_connection_duration{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA"} 0
+	syncthing_rest_stats_device_last_connection_duration{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-BBBBBBB"} 819990.3432191
+	syncthing_rest_stats_device_last_connection_duration{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-CCCCCCC"} 0
+	# HELP syncthing_rest_stats_device_last_connection_timestamp Timestamp since last connection with remote device expressed in Unix epoch
+	# TYPE syncthing_rest_stats_device_last_connection_timestamp gauge
+	syncthing_rest_stats_device_last_connection_timestamp{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA"} 3407040050
+	syncthing_rest_stats_device_last_connection_timestamp{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-BBBBBBB"} 3385540225
+	syncthing_rest_stats_device_last_connection_timestamp{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-CCCCCCC"} 473385600
 	# HELP syncthing_rest_stats_device_total_scrapes Current total Syncthings scrapes.
 	# TYPE syncthing_rest_stats_device_total_scrapes counter
 	syncthing_rest_stats_device_total_scrapes 1
