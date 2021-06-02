@@ -1,3 +1,8 @@
+## 0.3.1 / 2021-04-15
+---
+* Created new metric `last_connection_timestamp`
+* Removed the `lastSeen` label from `last_connection_duration`
+
 ## 0.3.0 / 2021-04-15
 ---
 * Added support /rest/db/status
