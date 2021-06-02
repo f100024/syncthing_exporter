@@ -162,17 +162,16 @@ func (c *StatsDeviceResponse) Collect(ch chan<- prometheus.Metric) {
 		)
 		thetime, err := time.Parse(time.RFC3339, deviceDataAssertion["lastSeen"].(string))
 		if err != nil {
-		    _ = level.Warn(*c.logger).Log(
-			    "msg", "failed to parse timestamp",
-			    "err", err,
-		    )
-		    return
+			_ = level.Warn(*c.logger).Log(
+				"msg", "failed to parse timestamp",
+				"err", err,
+			)
+			return
 		}
-		epoch := float64(thetime.Unix())
 		ch <- prometheus.MustNewConstMetric(
 			c.numericalMetrics["last_connection_timestamp"].Desc,
 			c.numericalMetrics["last_connection_timestamp"].Type,
-			c.numericalMetrics["last_connection_timestamp"].Value(epoch),
+			c.numericalMetrics["last_connection_timestamp"].Value(float64(thetime.Unix())),
 			deviceID,
 		)
 	}

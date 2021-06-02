@@ -46,9 +46,9 @@ func TestNewStatsDeviceReport(t *testing.T) {
 	syncthing_rest_stats_device_last_connection_duration{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-CCCCCCC"} 0
 	# HELP syncthing_rest_stats_device_last_connection_timestamp Timestamp since last connection with remote device expressed in Unix epoch
 	# TYPE syncthing_rest_stats_device_last_connection_timestamp gauge
-	syncthing_rest_stats_device_last_connection_timestamp{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA"} 3407040050
-	syncthing_rest_stats_device_last_connection_timestamp{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-BBBBBBB"} 3385540225
-	syncthing_rest_stats_device_last_connection_timestamp{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-CCCCCCC"} 473385600
+	syncthing_rest_stats_device_last_connection_timestamp{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA"} 3.40704005e+09
+	syncthing_rest_stats_device_last_connection_timestamp{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-BBBBBBB"} 3.385540225e+09
+	syncthing_rest_stats_device_last_connection_timestamp{deviceID="AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-CCCCCCC"} 4.733856e+08
 	# HELP syncthing_rest_stats_device_total_scrapes Current total Syncthings scrapes.
 	# TYPE syncthing_rest_stats_device_total_scrapes counter
 	syncthing_rest_stats_device_total_scrapes 1
