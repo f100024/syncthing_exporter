@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"time"
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
@@ -58,7 +59,17 @@ func NewStatsDeviceReport(logger log.Logger, client *http.Client, url *url.URL, 
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "last_connection_duration"),
 					"Duration of last connection with remote device in seconds.",
-					[]string{"deviceID", "lastSeen"}, nil),
+					[]string{"deviceID"}, nil),
+				Value: func(v float64) float64 {
+					return v
+				},
+			},
+			"last_connection_timestamp": {
+				Type: prometheus.GaugeValue,
+				Desc: prometheus.NewDesc(
+					prometheus.BuildFQName(namespace, subsystem, "last_connection_timestamp"),
+					"Timestamp since last connection with remote device expressed in Unix epoch",
+					[]string{"deviceID"}, nil),
 				Value: func(v float64) float64 {
 					return v
 				},
@@ -147,7 +158,22 @@ func (c *StatsDeviceResponse) Collect(ch chan<- prometheus.Metric) {
 			c.numericalMetrics["last_connection_duration"].Desc,
 			c.numericalMetrics["last_connection_duration"].Type,
 			c.numericalMetrics["last_connection_duration"].Value(deviceDataAssertion["lastConnectionDurationS"].(float64)),
-			deviceID, deviceDataAssertion["lastSeen"].(string),
+			deviceID,
+		)
+		thetime, err := time.Parse(time.RFC3339, deviceDataAssertion["lastSeen"].(string))
+		if err != nil {
+		    _ = level.Warn(*c.logger).Log(
+			    "msg", "failed to parse timestamp",
+			    "err", err,
+		    )
+		    return
+		}
+		epoch := float64(thetime.Unix())
+		ch <- prometheus.MustNewConstMetric(
+			c.numericalMetrics["last_connection_timestamp"].Desc,
+			c.numericalMetrics["last_connection_timestamp"].Type,
+			c.numericalMetrics["last_connection_timestamp"].Value(epoch),
+			deviceID,
 		)
 	}
 
