@@ -16,7 +16,7 @@ For pre-built binaries please take a look at the releases.
 Basic prometheus configuration:
 
 ```yaml
-  - job_name: 'syncting_server'
+  - job_name: 'syncthing_server'
     metrics_path: /metrics
     static_configs:
       - targets: ['127.0.0.1:9093']
