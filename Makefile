@@ -33,7 +33,7 @@ crossbuild: promu
 
 release: promu
 	@echo ">> create release"
-	@$(PROMU) release --verbose --timeout=10s --retry=5 $(BIN_DIR)/.tarballs
+	@$(PROMU) release --verbose --timeout=60s --retry=30 $(BIN_DIR)/.tarballs
 
 promu:
 	@GOOS=$(shell uname -s | tr A-Z a-z) \
