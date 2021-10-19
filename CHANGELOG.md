@@ -1,3 +1,10 @@
+## 0.3.2 / 2021-10-19
+---
+* Switch to go1.17
+* Updated dependencies for compatibility with go1.17
+* Updated promu to 0.12.0
+* Added multiple platforms 
+
 ## 0.3.1 / 2021-04-15
 ---
 * Created new metric `last_connection_timestamp`
