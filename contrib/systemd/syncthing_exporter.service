@@ -1,0 +1,15 @@
+[Unit]
+Description=Syncthing exporter Service
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+Restart=on-failure
+RestartSec=5s
+EnvironmentFile=/etc/sysconfig/syncthing_exporter 
+ExecStart=/usr/local/sbin/syncthing_exporter $OPTIONS 
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target
