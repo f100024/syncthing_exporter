@@ -1,7 +1,7 @@
 
 GO      	  :=  go
 PROMU   	  := $(GOPATH)/bin/promu
-PROMU_VERSION := 0.12.0
+PROMU_VERSION := 0.13.0
 pkgs	 	  = $(shell $(GO) list ./... | grep -v /vendor/)
 PREFIX  	  ?= $(shell pwd)
 BIN_DIR       ?= $(shell pwd)
@@ -38,5 +38,4 @@ release: promu
 promu:
 	@GOOS=$(shell uname -s | tr A-Z a-z) \
 	        GOARCH=$(subst x86_64,amd64,$(patsubst i%86,386,$(shell uname -m))) \
-	        $(GO) get -u github.com/prometheus/promu@v$(PROMU_VERSION)
-			
+	        $(GO) install github.com/prometheus/promu@v$(PROMU_VERSION)
