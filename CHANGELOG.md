@@ -1,3 +1,9 @@
+## 0.3.3 / 2022-06-12
+---
+* Switch to go1.18
+* Updated dependencies
+* Updated promu to 0.12.0
+
 ## 0.3.2 / 2021-10-19
 ---
 * Switch to go1.17
