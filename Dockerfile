@@ -1,4 +1,4 @@
-FROM quay.io/prometheus/golang-builder:1.17-base as builder
+FROM quay.io/prometheus/golang-builder:1.18-base as builder
 
 COPY . /builddir
 WORKDIR /builddir
