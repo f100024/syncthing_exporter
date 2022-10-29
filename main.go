@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 	"os"
@@ -66,6 +67,14 @@ func main() {
 	if err != nil {
 		_ = level.Error(logger).Log(
 			"msg", "failed to parse syncthingURI",
+			"err", err,
+		)
+		os.Exit(1)
+	}
+
+	if stURL.Scheme != "http" && stURL.Scheme != "https" {
+		_ = level.Error(logger).Log(
+			"msg", fmt.Sprintf("The scheme %s is unsupported, the only supported schemes for syncthingURI are http and https", stURL.Scheme),
 			"err", err,
 		)
 		os.Exit(1)
