@@ -3,6 +3,7 @@ package collector
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"net/http"
 	"net/url"
 	"time"
@@ -154,10 +155,17 @@ func (c *StatsDeviceResponse) Collect(ch chan<- prometheus.Metric) {
 
 	for deviceID, deviceData := range statsDeviceResponse {
 		deviceDataAssertion := deviceData.(map[string]interface{})
+		var lastConnectionDurationSMaybeNull = deviceDataAssertion["lastConnectionDurationS"]
+		var lastConnectionDurationS float64
+		if lastConnectionDurationSMaybeNull != nil {
+			lastConnectionDurationS = lastConnectionDurationSMaybeNull.(float64)
+		} else {
+			lastConnectionDurationS = math.NaN()
+		}
 		ch <- prometheus.MustNewConstMetric(
 			c.numericalMetrics["last_connection_duration"].Desc,
 			c.numericalMetrics["last_connection_duration"].Type,
-			c.numericalMetrics["last_connection_duration"].Value(deviceDataAssertion["lastConnectionDurationS"].(float64)),
+			c.numericalMetrics["last_connection_duration"].Value(lastConnectionDurationS),
 			deviceID,
 		)
 		thetime, err := time.Parse(time.RFC3339, deviceDataAssertion["lastSeen"].(string))
