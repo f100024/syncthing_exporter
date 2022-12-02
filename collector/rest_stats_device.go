@@ -58,7 +58,7 @@ func NewStatsDeviceReport(logger log.Logger, client *http.Client, url *url.URL, 
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, subsystem, "last_connection_duration"),
-					"Duration of last connection with remote device in seconds.",
+					"Duration of last connection with remote device in seconds. If value less 0, means value was missed in syncthing response.",
 					[]string{"deviceID"}, nil),
 				Value: func(v float64) float64 {
 					return v
@@ -154,6 +154,11 @@ func (c *StatsDeviceResponse) Collect(ch chan<- prometheus.Metric) {
 
 	for deviceID, deviceData := range statsDeviceResponse {
 		deviceDataAssertion := deviceData.(map[string]interface{})
+
+		if deviceDataAssertion["lastConnectionDurationS"] == nil {
+			deviceDataAssertion["lastConnectionDurationS"] = -1.0
+		}
+
 		ch <- prometheus.MustNewConstMetric(
 			c.numericalMetrics["last_connection_duration"].Desc,
 			c.numericalMetrics["last_connection_duration"].Type,
