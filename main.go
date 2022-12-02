@@ -2,8 +2,8 @@ package main
 
 import (
 	"net/http"
-	"net/url"
 	"os"
+	"regexp"
 	"strings"
 
 	"github.com/f100024/syncthing_exporter/collector"
@@ -35,7 +35,7 @@ func main() {
 			"HTTP API address of Syncthing node (e.g. http://127.0.0.1:8384). Environment variable: SYNCTHING_URI").
 			Required().
 			Envar("SYNCTHING_URI").
-			String()
+			URL()
 
 		syncthingToken = kingpin.Flag("syncthing.token",
 			"Token for authentification Syncthing API. Environment variable: SYNCTHING_TOKEN").
@@ -48,6 +48,7 @@ func main() {
 			Default("5s").
 			Envar("SYNCTHING_TIMEOUT").
 			Duration()
+
 		syncthingFoldersID = kingpin.Flag("syncthing.foldersid",
 			"ID of folders for getting db status. Environment variable: SYNCTHING_FOLDERSID").
 			Envar("SYNCTHING_FOLDERSID").
@@ -61,13 +62,11 @@ func main() {
 	kingpin.Parse()
 
 	logger := promlog.New(promlogConfig)
+	stURL := *syncthingURI
 
-	stURL, err := url.Parse(*syncthingURI)
-	if err != nil {
-		_ = level.Error(logger).Log(
-			"msg", "failed to parse syncthingURI",
-			"err", err,
-		)
+	is_valid_url_schema, _ := regexp.MatchString("^(http|https)$", stURL.Scheme)
+	if !is_valid_url_schema {
+		level.Error(logger).Log("msg", "Syncthing URL schema is not allowed. URL schema should be matched http|https.")
 		os.Exit(1)
 	}
 
