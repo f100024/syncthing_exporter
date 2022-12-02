@@ -1,3 +1,9 @@
+## 0.3.4 / 2022-12-02
+---
+* Fixed crash due to missing value `lastConnectionDurationS` (thanks to @benediktschlager) 
+* Fixed arm* docker image (thanks to @Luxtech)
+* Switched to go1.19
+* Updated dependencies
 ## 0.3.3 / 2022-06-12
 ---
 * Switch to go1.18
