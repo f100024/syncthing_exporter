@@ -19,33 +19,34 @@ on:
       - 'v*'
 
 jobs:
-  # build_release:
-  #   name: Build release
-  #   runs-on: ubuntu-22.04
-  #   env:
-  #     GOPATH: /home/runner/go
-  #   steps:
+  build_release:
+    if: ${{ inputs.make_release }}
+    name: Build release
+    runs-on: ubuntu-22.04
+    env:
+      GOPATH: /home/runner/go
+    steps:
  
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3.1.0
+      - name: Checkout code
+        uses: actions/checkout@v3.1.0
   
-  #     - name: Make crossbuild
-  #       run: make crossbuild
+      - name: Make crossbuild
+        run: make crossbuild
  
-  #     - name: Make tarballs
-  #       run: make tarballs
+      - name: Make tarballs
+        run: make tarballs
  
-  #     - name: Upload files to release
-  #       if: ${{ inputs.make_release }}
-  #       run: make release
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload files to release
+        if: ${{ inputs.make_release }}
+        run: make release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  #     - name: Cache artifacts
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: .build
-  #         key: syncthing_exporter-${{ github.sha }}
+      - name: Cache artifacts
+        uses: actions/cache@v3
+        with:
+          path: .build
+          key: syncthing_exporter-${{ github.sha }}
 
   build_dockerimage:
     if: ${{ inputs.build_dockerimage }}
