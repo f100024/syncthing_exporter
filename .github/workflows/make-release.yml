@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       make_release:
-        description: Create draft of release on github
+        description: Create draft of release
         default: true
         type: boolean
         required: true
@@ -19,33 +19,33 @@ on:
       - 'v*'
 
 jobs:
-  build_release:
-    name: Build release
-    runs-on: ubuntu-22.04
-    env:
-      GOPATH: /home/runner/go
-    steps:
+  # build_release:
+  #   name: Build release
+  #   runs-on: ubuntu-22.04
+  #   env:
+  #     GOPATH: /home/runner/go
+  #   steps:
  
-      - name: Checkout code
-        uses: actions/checkout@v3.1.0
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3.1.0
   
-      - name: Make crossbuild
-        run: make crossbuild
+  #     - name: Make crossbuild
+  #       run: make crossbuild
  
-      - name: Make tarballs
-        run: make tarballs
+  #     - name: Make tarballs
+  #       run: make tarballs
  
-      - name: Upload files to release
-        if: ${{ inputs.make_release }}
-        run: make release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Upload files to release
+  #       if: ${{ inputs.make_release }}
+  #       run: make release
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Cache artifacts
-        uses: actions/cache@v3
-        with:
-          path: .build
-          key: syncthing_exporter-${{ github.sha }}
+  #     - name: Cache artifacts
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: .build
+  #         key: syncthing_exporter-${{ github.sha }}
 
   build_dockerimage:
     if: ${{ inputs.build_dockerimage }}
@@ -58,15 +58,13 @@ jobs:
         uses: actions/checkout@v3.1.0
 
       - name: Set VERSION as environment variable
-        run: |
-          echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
-          echo "TAG=$(cat VERSION)" >> $GITHUB_ENV
+        run: echo "VERSION=$(cat VERSION)" >> $GITHUB_ENV
 
       - name: Cache artifacts
         uses: actions/cache@v3
         with:
           path: .build
-          key: syncthing_exporter-${{ github.sha }}
+          key: syncthing_exporter-3c019ee5de64928c7cb8cd84b72402b1131c12e2
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2.1.0
@@ -81,9 +79,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
   
       - name: Build and push
-        uses: docker/bake-action@v2
+        uses: docker/build-push-action@v3.2.0
         with:
+          context: .
+          platforms: linux/amd64,linux/arm64,linux/386,linux/arm/v6,linux/arm/v7
           push: true
-          pull: true
-          files: docker-bake-release.hcl
-          targets: release
+          target: ghactions
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/syncthing_exporter:test,
+            # ${{ secrets.DOCKERHUB_USERNAME }}/syncthing_exporter:${{ env.VERSION }}
+        env:
+          DOCKER_BUILDKIT: 1
