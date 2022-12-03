@@ -86,7 +86,6 @@ jobs:
           push: true
           target: ghactions
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/syncthing_exporter:test,
-            # ${{ secrets.DOCKERHUB_USERNAME }}/syncthing_exporter:${{ env.VERSION }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/syncthing_exporter:test
         env:
           DOCKER_BUILDKIT: 1
