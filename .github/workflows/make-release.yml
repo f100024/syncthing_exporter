@@ -48,8 +48,8 @@ jobs:
   #         key: syncthing_exporter-${{ github.sha }}
 
   build_dockerimage:
-    # if: ${{ inputs.build_dockerimage }}
-    needs: build_release
+    if: ${{ inputs.build_dockerimage }}
+    # needs: build_release
     name: Build docker images
     runs-on: ubuntu-22.04
     steps:
