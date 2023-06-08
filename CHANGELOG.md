@@ -1,3 +1,7 @@
+## 0.3.5 / 2023-06-08
+---
+* Switched to go1.20
+* Updated dependencies
 ## 0.3.4 / 2022-12-02
 ---
 * Fixed crash due to missing value `lastConnectionDurationS` (thanks to @benediktschlager) 
