@@ -2,10 +2,10 @@ package collector
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"strings"
 	"testing"
 
@@ -15,7 +15,7 @@ import (
 
 func TestNewSVCReport(t *testing.T) {
 
-	jsonResponse, _ := ioutil.ReadFile("fixtures/rest_svc_report_response.json")
+	jsonResponse, _ := os.ReadFile("fixtures/rest_svc_report_response.json")
 
 	ts := httptest.NewTLSServer(
 		http.HandlerFunc(
@@ -26,10 +26,7 @@ func TestNewSVCReport(t *testing.T) {
 	)
 	defer ts.Close()
 
-	u, err := url.Parse(ts.URL)
-	if err != nil {
-		t.Errorf("url parse error: %s", err)
-	}
+	u, _ := url.Parse(ts.URL)
 
 	promlogConfig := &promlog.Config{}
 	logger := promlog.New(promlogConfig)
@@ -80,7 +77,35 @@ func TestNewSVCReport(t *testing.T) {
 	syncthing_rest_svc_report_uptime 1.276967e+06
 	`
 
-	err = testutil.CollectAndCompare(
+	err := testutil.CollectAndCompare(
+		NewSVCReport(logger, HttpClient, u, &testToken),
+		strings.NewReader(expected),
+	)
+
+	if err != nil {
+		t.Errorf("NewSVCReportError %s", err)
+	}
+}
+
+func TestFailedNewSVCReport(t *testing.T) {
+
+	u, _ := url.Parse("http://wrong-url")
+	promlogConfig := &promlog.Config{}
+	logger := promlog.New(promlogConfig)
+
+	testToken := "12345"
+	expected := `
+	# HELP syncthing_rest_svc_report_json_parse_failures Number of errors while parsing JSON.
+	# TYPE syncthing_rest_svc_report_json_parse_failures counter
+	syncthing_rest_svc_report_json_parse_failures 0
+	# HELP syncthing_rest_svc_report_total_scrapes Current total Syncthings scrapes.
+	# TYPE syncthing_rest_svc_report_total_scrapes counter
+	syncthing_rest_svc_report_total_scrapes 1
+	# HELP syncthing_rest_svc_report_up Was the last scrape of the Syncthing endpoint successful.
+	# TYPE syncthing_rest_svc_report_up gauge
+	syncthing_rest_svc_report_up 0
+	`
+	err := testutil.CollectAndCompare(
 		NewSVCReport(logger, HttpClient, u, &testToken),
 		strings.NewReader(expected),
 	)

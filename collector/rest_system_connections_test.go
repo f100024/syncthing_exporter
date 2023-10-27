@@ -2,10 +2,10 @@ package collector
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"strings"
 	"testing"
 
@@ -15,7 +15,7 @@ import (
 
 func TestNewSCReport(t *testing.T) {
 
-	jsonResponse, err := ioutil.ReadFile("fixtures/rest_system_connections_response.json")
+	jsonResponse, err := os.ReadFile("fixtures/rest_system_connections_response.json")
 	if err != nil {
 		t.Error("Cant open fixtures file")
 	}
