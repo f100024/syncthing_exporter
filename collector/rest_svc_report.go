@@ -172,8 +172,8 @@ func NewSVCReport(logger log.Logger, client *http.Client, url *url.URL, token *s
 				nil,
 			),
 			Value: func(svcData *contract.Report) float64 {
-				if svcData.UniqueID != "" {
-					return float64(1)
+				// Leave this parameter for backward compatibility with versions < v0.3.0 of grafana dashboards
+				return float64(1)
 				}
 				return float64(0)
 			},
