@@ -1,3 +1,10 @@
+## 0.3.6 / 2023-10-27
+---
+* Fixed bug (#25) node reporting down
+* Updated Grafana Dashboard example
+* Added linux/riscv64 build
+* Switched to go1.21
+* Updated dependencies
 ## 0.3.5 / 2023-06-08
 ---
 * Switched to go1.20
