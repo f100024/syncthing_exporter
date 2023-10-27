@@ -1,4 +1,3 @@
-verbose: true
 go:
     version: 1.21
     cgo: false
