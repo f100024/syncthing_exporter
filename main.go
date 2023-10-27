@@ -8,12 +8,12 @@ import (
 
 	"github.com/f100024/syncthing_exporter/collector"
 
-	"github.com/go-kit/kit/log/level"
+	kingpin "github.com/alecthomas/kingpin/v2"
+	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/promlog"
 	"github.com/prometheus/common/version"
-	kingpin "github.com/alecthomas/kingpin/v2"
 )
 
 func main() {

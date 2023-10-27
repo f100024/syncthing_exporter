@@ -16,3 +16,7 @@ vendor/
 .vscode/
 .build/
 .tarballs/
+target/
+
+# App binary
+syncthing_exporter

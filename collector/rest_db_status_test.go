@@ -2,10 +2,10 @@ package collector
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"strings"
 	"testing"
 
@@ -15,7 +15,7 @@ import (
 
 func TestNewDBStatusReport(t *testing.T) {
 
-	jsonResponse, _ := ioutil.ReadFile("fixtures/rest_db_status_response.json")
+	jsonResponse, _ := os.ReadFile("fixtures/rest_db_status_response.json")
 
 	ts := httptest.NewTLSServer(
 		http.HandlerFunc(

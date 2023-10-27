@@ -2,10 +2,10 @@ package collector
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"strings"
 	"testing"
 
@@ -15,7 +15,7 @@ import (
 
 func TestNewStatsDeviceReport(t *testing.T) {
 
-	jsonResponse, _ := ioutil.ReadFile("fixtures/rest_stats_device_response.json")
+	jsonResponse, _ := os.ReadFile("fixtures/rest_stats_device_response.json")
 
 	ts := httptest.NewTLSServer(
 		http.HandlerFunc(
@@ -69,7 +69,7 @@ func TestNewStatsDeviceReport(t *testing.T) {
 
 func TestStatsDeviceReportWithNoLastConnectionDuration(t *testing.T) {
 
-	jsonResponse, _ := ioutil.ReadFile("fixtures/rest_stats_device_response_missed_lastConnectionDurationS.json")
+	jsonResponse, _ := os.ReadFile("fixtures/rest_stats_device_response_missed_lastConnectionDurationS.json")
 
 	ts := httptest.NewTLSServer(
 		http.HandlerFunc(
