@@ -1,3 +1,8 @@
+## 0.3.6 / 2023-03-20
+---
+* Switched to go1.22
+* Updated dependencies
+
 ## 0.3.6 / 2023-10-27
 ---
 * Fixed bug (#25) node reporting down
