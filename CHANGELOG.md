@@ -1,4 +1,4 @@
-## 0.3.6 / 2023-03-20
+## 0.3.7 / 2023-03-20
 ---
 * Switched to go1.22
 * Updated dependencies
