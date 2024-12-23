@@ -1,3 +1,7 @@
+## 0.3.9 / 2024-12-23
+---
+* Updated dependencies
+* Minor fixes
 ## 0.3.8 / 2024-08-26
 ---
 * Switched to go1.23
