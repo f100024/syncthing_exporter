@@ -1,3 +1,4 @@
+// Package main is a build entry point of syncthing_exporter
 package main
 
 import (
@@ -9,11 +10,10 @@ import (
 	"github.com/f100024/syncthing_exporter/collector"
 
 	kingpin "github.com/alecthomas/kingpin/v2"
-	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 	clientVersion "github.com/prometheus/client_golang/prometheus/collectors/version"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/prometheus/common/promlog"
+	"github.com/prometheus/common/promslog"
 	"github.com/prometheus/common/version"
 )
 
@@ -56,29 +56,29 @@ func main() {
 			String()
 	)
 
-	promlogConfig := &promlog.Config{}
+	promslogConfig := &promslog.Config{Style: "slog"}
 
 	kingpin.Version(version.Print(Name))
 	kingpin.CommandLine.HelpFlag.Short('h')
 	kingpin.Parse()
 
-	logger := promlog.New(promlogConfig)
+	logger := promslog.New(promslogConfig)
 	stURL := *syncthingURI
 
-	is_valid_url_schema, _ := regexp.MatchString("^(http|https)$", stURL.Scheme)
-	if !is_valid_url_schema {
-		level.Error(logger).Log("msg", "Syncthing URL schema is not allowed. URL schema should be matched http|https.")
+	isValidURLSchema, _ := regexp.MatchString("^(http|https)$", stURL.Scheme)
+	if !isValidURLSchema {
+		logger.Error("Syncthing URL schema is not allowed. URL schema should be matched http|https.")
 		os.Exit(1)
 	}
 
-	collector.HttpClient.Timeout = *syncthingTimeout
+	collector.HTTPClient.Timeout = *syncthingTimeout
 
 	versionMetric := clientVersion.NewCollector(Name)
 	prometheus.MustRegister(versionMetric)
 
-	prometheus.MustRegister(collector.NewSVCReport(logger, collector.HttpClient, stURL, syncthingToken))
-	prometheus.MustRegister(collector.NewSCReport(logger, collector.HttpClient, stURL, syncthingToken))
-	prometheus.MustRegister(collector.NewStatsDeviceReport(logger, collector.HttpClient, stURL, syncthingToken))
+	prometheus.MustRegister(collector.NewSVCReport(logger, collector.HTTPClient, stURL, syncthingToken))
+	prometheus.MustRegister(collector.NewSCReport(logger, collector.HTTPClient, stURL, syncthingToken))
+	prometheus.MustRegister(collector.NewStatsDeviceReport(logger, collector.HTTPClient, stURL, syncthingToken))
 	if *syncthingFoldersID != "" {
 		foldersIDList := func(s *string) *[]string {
 			var list []string
@@ -88,14 +88,14 @@ func main() {
 			}
 			return &list
 		}
-		prometheus.MustRegister(collector.NewDBStatusReport(logger, collector.HttpClient, stURL, syncthingToken, foldersIDList(syncthingFoldersID)))
+		prometheus.MustRegister(collector.NewDBStatusReport(logger, collector.HTTPClient, stURL, syncthingToken, foldersIDList(syncthingFoldersID)))
 	}
 
-	level.Info(logger).Log("msg", "Starting syncthing_exporter", "version", version.Info())
-	level.Info(logger).Log("msg", "Build context", "build_context", version.BuildContext())
+	logger.Info("Starting syncthing_exporter", "version", version.Info())
+	logger.Info("Build context", "build_context", version.BuildContext())
 
 	http.Handle(*webMetricsPath, promhttp.Handler())
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
 		w.Write([]byte(`<html>
 			<head><title>Syncthing Exporter</title></head>
 			<body>
@@ -105,7 +105,6 @@ func main() {
 			</html>`))
 	})
 
-	level.Info(logger).Log("msg", "Listening on", "address", *webListenAddress)
+	logger.Info("Listening", "address", *webListenAddress)
 	http.ListenAndServe(*webListenAddress, nil)
-
 }

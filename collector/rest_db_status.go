@@ -3,11 +3,10 @@ package collector
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"net/url"
 
-	"github.com/go-kit/log"
-	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -25,9 +24,9 @@ type DBStatusResponseNumericalMetrics struct {
 	Value float64
 }
 
-// DBStatusResponse defines collector struct.
+// DBStatusMetrics defines collector struct.
 type DBStatusMetrics struct {
-	logger    *log.Logger
+	logger    *slog.Logger
 	client    *http.Client
 	url       *url.URL
 	token     *string
@@ -39,11 +38,11 @@ type DBStatusMetrics struct {
 }
 
 // NewDBStatusReport returns a new Collector exposing SVCResponse
-func NewDBStatusReport(logger log.Logger, client *http.Client, url *url.URL, token *string, foldersid *[]string) *DBStatusMetrics {
+func NewDBStatusReport(logger *slog.Logger, client *http.Client, url *url.URL, token *string, foldersid *[]string) *DBStatusMetrics {
 	subsystem := "rest_db_status"
 
 	return &DBStatusMetrics{
-		logger:    &logger,
+		logger:    logger,
 		client:    client,
 		url:       url,
 		token:     token,
@@ -288,26 +287,26 @@ func (c *DBStatusMetrics) fetchDataAndDecode() map[string]DBStatusResponse {
 		if err != nil {
 			message = fmt.Sprintf("Request %s://%s%s%s: failed with code %d",
 				request.URL.Scheme, request.URL.Host, request.URL.Path, request.URL.RawQuery, res.StatusCode)
-			level.Error(*c.logger).Log("msg", message)
+			c.logger.Error(message)
 			continue
 		}
 
 		defer func() {
 			err = res.Body.Close()
 			if err != nil {
-				_ = level.Info(*c.logger).Log("msg", "Failed to close http.Client", "err", err)
+				c.logger.Info(fmt.Sprintf("%s: %s", "Failed to close http.Client", err))
 			}
 		}()
 
 		if res.StatusCode != http.StatusOK {
 			message = fmt.Sprintf("Request %s://%s%s%s: failed with code %d",
 				request.URL.Scheme, request.URL.Host, request.URL.Path, request.URL.RawQuery, res.StatusCode)
-			level.Error(*c.logger).Log("msg", message)
+			c.logger.Error(message)
 			continue
 		}
 
 		if err := json.NewDecoder(res.Body).Decode(&chr); err != nil {
-			_ = level.Info(*c.logger).Log("msg", "Failed decode json", "err", err)
+			c.logger.Info(fmt.Sprintf("%s: %s", "Failed decode json", err))
 			c.jsonParseFailures.Inc()
 			continue
 		}

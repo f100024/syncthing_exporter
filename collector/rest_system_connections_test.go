@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/prometheus/client_golang/prometheus/testutil"
-	"github.com/prometheus/common/promlog"
+	"github.com/prometheus/common/promslog"
 )
 
 func TestNewSCReport(t *testing.T) {
@@ -34,8 +34,8 @@ func TestNewSCReport(t *testing.T) {
 		t.Errorf("url parse error: %s", err)
 	}
 
-	promlogConfig := &promlog.Config{}
-	logger := promlog.New(promlogConfig)
+	promslogConfig := &promslog.Config{}
+	logger := promslog.New(promslogConfig)
 
 	testToken := "12345"
 	expected := `
@@ -76,7 +76,7 @@ func TestNewSCReport(t *testing.T) {
 	syncthing_rest_system_connections_up 1
 	`
 	err = testutil.CollectAndCompare(
-		NewSCReport(logger, HttpClient, u, &testToken),
+		NewSCReport(logger, HTTPClient, u, &testToken),
 		strings.NewReader(expected),
 	)
 

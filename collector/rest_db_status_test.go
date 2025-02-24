@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/prometheus/client_golang/prometheus/testutil"
-	"github.com/prometheus/common/promlog"
+	"github.com/prometheus/common/promslog"
 )
 
 func TestNewDBStatusReport(t *testing.T) {
@@ -31,8 +31,8 @@ func TestNewDBStatusReport(t *testing.T) {
 		t.Errorf("url parse error: %s", err)
 	}
 
-	promlogConfig := &promlog.Config{}
-	logger := promlog.New(promlogConfig)
+	promlogConfig := &promslog.Config{}
+	logger := promslog.New(promlogConfig)
 
 	testToken := "12345"
 	testFoldersid := []string{"aaaaa-bb11b"}
@@ -110,7 +110,7 @@ func TestNewDBStatusReport(t *testing.T) {
 	`
 
 	err = testutil.CollectAndCompare(
-		NewDBStatusReport(logger, HttpClient, u, &testToken, &testFoldersid),
+		NewDBStatusReport(logger, HTTPClient, u, &testToken, &testFoldersid),
 		strings.NewReader(expected),
 	)
 

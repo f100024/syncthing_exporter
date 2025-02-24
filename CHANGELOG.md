@@ -1,3 +1,9 @@
+## 0.3.10 / 2025-02-24
+---
+* Switched from promlog to promslog
+* Switched to go 1.24
+* Updated dependencies
+* Minor fixes
 ## 0.3.9 / 2024-12-23
 ---
 * Updated dependencies

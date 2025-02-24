@@ -1,3 +1,4 @@
+// Package collector is entry point of collector
 package collector
 
 import (
@@ -10,8 +11,8 @@ const (
 )
 
 var (
-	// Skip insecure connection verify due to using self signed certificate on syncthing side.
-	HttpClient = &http.Client{
+	// HTTPClient skip insecure connection verify due to using self signed certificate on syncthing side.
+	HTTPClient = &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
 				InsecureSkipVerify: true,

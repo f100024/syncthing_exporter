@@ -1,5 +1,6 @@
 package collector
 
+// DBStatusResponse is a struct of the `syncthing` instance DB status
 type DBStatusResponse struct {
 	Errors float64 `json:"errors"`
 
