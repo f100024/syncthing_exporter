@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/prometheus/client_golang/prometheus/testutil"
-	"github.com/prometheus/common/promlog"
+	"github.com/prometheus/common/promslog"
 )
 
 func TestNewSVCReport(t *testing.T) {
@@ -28,8 +28,8 @@ func TestNewSVCReport(t *testing.T) {
 
 	u, _ := url.Parse(ts.URL)
 
-	promlogConfig := &promlog.Config{}
-	logger := promlog.New(promlogConfig)
+	promslogConfig := &promslog.Config{}
+	logger := promslog.New(promslogConfig)
 
 	testToken := "12345"
 	expected := `
@@ -78,7 +78,7 @@ func TestNewSVCReport(t *testing.T) {
 	`
 
 	err := testutil.CollectAndCompare(
-		NewSVCReport(logger, HttpClient, u, &testToken),
+		NewSVCReport(logger, HTTPClient, u, &testToken),
 		strings.NewReader(expected),
 	)
 
@@ -90,8 +90,8 @@ func TestNewSVCReport(t *testing.T) {
 func TestFailedNewSVCReport(t *testing.T) {
 
 	u, _ := url.Parse("http://wrong-url")
-	promlogConfig := &promlog.Config{}
-	logger := promlog.New(promlogConfig)
+	promlogConfig := &promslog.Config{}
+	logger := promslog.New(promlogConfig)
 
 	testToken := "12345"
 	expected := `
@@ -106,7 +106,7 @@ func TestFailedNewSVCReport(t *testing.T) {
 	syncthing_rest_svc_report_up 0
 	`
 	err := testutil.CollectAndCompare(
-		NewSVCReport(logger, HttpClient, u, &testToken),
+		NewSVCReport(logger, HTTPClient, u, &testToken),
 		strings.NewReader(expected),
 	)
 

@@ -3,25 +3,24 @@ package collector
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"net/url"
 	"time"
 
-	"github.com/go-kit/log"
-	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
-// SDResponseNumericalMetrics defines struct for numeric metrics
+// StatsDeviceResponseNumericalMetrics defines struct for numeric metrics
 type StatsDeviceResponseNumericalMetrics struct {
 	Type  prometheus.ValueType
 	Desc  *prometheus.Desc
 	Value func(v float64) float64
 }
 
-// SDResponse defines collector struct.
+// StatsDeviceResponse defines collector struct.
 type StatsDeviceResponse struct {
-	logger *log.Logger
+	logger *slog.Logger
 	client *http.Client
 	url    *url.URL
 	token  *string
@@ -31,12 +30,12 @@ type StatsDeviceResponse struct {
 	numericalMetrics                map[string]*StatsDeviceResponseNumericalMetrics
 }
 
-// NewStatDeviceReport
-func NewStatsDeviceReport(logger log.Logger, client *http.Client, url *url.URL, token *string) *StatsDeviceResponse {
+// NewStatsDeviceReport generate report from device
+func NewStatsDeviceReport(logger *slog.Logger, client *http.Client, url *url.URL, token *string) *StatsDeviceResponse {
 	subsystem := "rest_stats_device"
 
 	return &StatsDeviceResponse{
-		logger: &logger,
+		logger: logger,
 		client: client,
 		url:    url,
 		token:  token,
@@ -114,7 +113,7 @@ func (c *StatsDeviceResponse) fetchDataAndDecode() (map[string]interface{}, erro
 	defer func() {
 		err = res.Body.Close()
 		if err != nil {
-			_ = level.Warn(*c.logger).Log("msg", "failed to close http.Client", "err", err)
+			c.logger.Warn(fmt.Sprintf("%s: %s", "failed to close http.Client", err))
 		}
 	}()
 
@@ -144,10 +143,7 @@ func (c *StatsDeviceResponse) Collect(ch chan<- prometheus.Metric) {
 	statsDeviceResponse, err := c.fetchDataAndDecode()
 	if err != nil {
 		c.up.Set(0)
-		_ = level.Warn(*c.logger).Log(
-			"msg", "failed to fetch and decode data",
-			"err", err,
-		)
+		c.logger.Info(fmt.Sprintf("%s: %s", "failed to fetch and decode data", err))
 		return
 	}
 	c.up.Set(1)
@@ -167,10 +163,7 @@ func (c *StatsDeviceResponse) Collect(ch chan<- prometheus.Metric) {
 		)
 		thetime, err := time.Parse(time.RFC3339, deviceDataAssertion["lastSeen"].(string))
 		if err != nil {
-			_ = level.Warn(*c.logger).Log(
-				"msg", "failed to parse timestamp",
-				"err", err,
-			)
+			c.logger.Warn(fmt.Sprintf("%s: %s", "failed to parse timestamp", err))
 			return
 		}
 		ch <- prometheus.MustNewConstMetric(

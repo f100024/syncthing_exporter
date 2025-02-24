@@ -3,11 +3,10 @@ package collector
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"net/url"
 
-	"github.com/go-kit/log"
-	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/syncthing/syncthing/lib/ur/contract"
 )
@@ -26,7 +25,7 @@ type svcData struct {
 
 // SVCResponse defines collector struct.
 type SVCResponse struct {
-	logger *log.Logger
+	logger *slog.Logger
 	client *http.Client
 	url    *url.URL
 	token  *string
@@ -38,11 +37,11 @@ type SVCResponse struct {
 }
 
 // NewSVCReport returns a new Collector exposing SVCResponse
-func NewSVCReport(logger log.Logger, client *http.Client, url *url.URL, token *string) *SVCResponse {
+func NewSVCReport(logger *slog.Logger, client *http.Client, url *url.URL, token *string) *SVCResponse {
 	subsystem := "rest_svc_report"
 
 	return &SVCResponse{
-		logger: &logger,
+		logger: logger,
 		client: client,
 		url:    url,
 		token:  token,
@@ -185,7 +184,6 @@ func (c *SVCResponse) Describe(ch chan<- *prometheus.Desc) {
 	for _, metric := range c.metrics {
 		ch <- metric.Desc
 	}
-
 	ch <- c.data.Desc
 	ch <- c.up.Desc()
 	ch <- c.totalScrapes.Desc()
@@ -215,7 +213,7 @@ func (c *SVCResponse) fetchDataAndDecode() (contract.Report, error) {
 	defer func() {
 		err = res.Body.Close()
 		if err != nil {
-			_ = level.Warn(*c.logger).Log("msg", "failed to close http.Client", "err", err)
+			c.logger.Warn(fmt.Sprintf("%s: %s", "failed to close http.Client", err))
 		}
 	}()
 
@@ -244,10 +242,7 @@ func (c *SVCResponse) Collect(ch chan<- prometheus.Metric) {
 	SVCResp, err := c.fetchDataAndDecode()
 	if err != nil {
 		c.up.Set(0)
-		_ = level.Warn(*c.logger).Log(
-			"msg", "failed to fetch and decode data",
-			"err", err,
-		)
+		c.logger.Warn(fmt.Sprintf("%s: %s", "failed to fetch and decode data", err))
 		return
 	}
 	c.up.Set(1)

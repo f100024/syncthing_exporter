@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/prometheus/client_golang/prometheus/testutil"
-	"github.com/prometheus/common/promlog"
+	"github.com/prometheus/common/promslog"
 )
 
 func TestNewStatsDeviceReport(t *testing.T) {
@@ -31,8 +31,8 @@ func TestNewStatsDeviceReport(t *testing.T) {
 		t.Errorf("url parse error: %s", err)
 	}
 
-	promlogConfig := &promlog.Config{}
-	logger := promlog.New(promlogConfig)
+	promslogConfig := &promslog.Config{}
+	logger := promslog.New(promslogConfig)
 
 	testToken := "12345"
 	expected := `
@@ -58,7 +58,7 @@ func TestNewStatsDeviceReport(t *testing.T) {
 	`
 
 	err = testutil.CollectAndCompare(
-		NewStatsDeviceReport(logger, HttpClient, u, &testToken),
+		NewStatsDeviceReport(logger, HTTPClient, u, &testToken),
 		strings.NewReader(expected),
 	)
 
@@ -86,8 +86,8 @@ func TestStatsDeviceReportWithNoLastConnectionDuration(t *testing.T) {
 		t.Errorf("url parse error: %s", err)
 	}
 
-	promlogConfig := &promlog.Config{}
-	logger := promlog.New(promlogConfig)
+	promslogConfig := &promslog.Config{}
+	logger := promslog.New(promslogConfig)
 
 	testToken := "12345"
 	expected := `
@@ -113,7 +113,7 @@ func TestStatsDeviceReportWithNoLastConnectionDuration(t *testing.T) {
 	`
 
 	err = testutil.CollectAndCompare(
-		NewStatsDeviceReport(logger, HttpClient, u, &testToken),
+		NewStatsDeviceReport(logger, HTTPClient, u, &testToken),
 		strings.NewReader(expected),
 	)
 

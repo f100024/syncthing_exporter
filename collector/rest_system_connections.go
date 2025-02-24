@@ -3,11 +3,10 @@ package collector
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"net/url"
 
-	"github.com/go-kit/log"
-	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -34,7 +33,7 @@ type SCResponseTotalNumericalMetrics struct {
 
 // SCResponse defines collector struct.
 type SCResponse struct {
-	logger *log.Logger
+	logger *slog.Logger
 	client *http.Client
 	url    *url.URL
 	token  *string
@@ -47,11 +46,11 @@ type SCResponse struct {
 }
 
 // NewSCReport returns a new Collector exposing SVCResponse
-func NewSCReport(logger log.Logger, client *http.Client, url *url.URL, token *string) *SCResponse {
+func NewSCReport(logger *slog.Logger, client *http.Client, url *url.URL, token *string) *SCResponse {
 	subsystem := "rest_system_connections"
 
 	return &SCResponse{
-		logger: &logger,
+		logger: logger,
 		client: client,
 		url:    url,
 		token:  token,
@@ -186,7 +185,7 @@ func (c *SCResponse) fetchDataAndDecode() (SystemConnectionsResponse, error) {
 	defer func() {
 		err = res.Body.Close()
 		if err != nil {
-			level.Warn(*c.logger).Log("msg", "failed to close http.Client", "err", err)
+			c.logger.Warn(fmt.Sprintf("%s: %s", "failed to close http.Client", err))
 		}
 	}()
 
@@ -217,10 +216,7 @@ func (c *SCResponse) Collect(ch chan<- prometheus.Metric) {
 	SCResponse, err := c.fetchDataAndDecode()
 	if err != nil {
 		c.up.Set(0)
-		level.Warn(*c.logger).Log(
-			"msg", "failed to fetch and decode data",
-			"err", err,
-		)
+		c.logger.Warn(fmt.Sprintf("%s: %s", "failed to fetch and decode data", err))
 		return
 	}
 	c.up.Set(1)
