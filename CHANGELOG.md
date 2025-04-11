@@ -1,3 +1,8 @@
+## 0.3.11 / 2025-04-11
+---
+* Added support /rest/config/devices (#29)
+* Updated dependencies
+* Minor fixes
 ## 0.3.10 / 2025-02-24
 ---
 * Switched from promlog to promslog

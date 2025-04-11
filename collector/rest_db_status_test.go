@@ -19,7 +19,7 @@ func TestNewDBStatusReport(t *testing.T) {
 
 	ts := httptest.NewTLSServer(
 		http.HandlerFunc(
-			func(w http.ResponseWriter, r *http.Request) {
+			func(w http.ResponseWriter, _ *http.Request) {
 				fmt.Fprintln(w, string(jsonResponse))
 			},
 		),
