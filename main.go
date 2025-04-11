@@ -79,6 +79,7 @@ func main() {
 	prometheus.MustRegister(collector.NewSVCReport(logger, collector.HTTPClient, stURL, syncthingToken))
 	prometheus.MustRegister(collector.NewSCReport(logger, collector.HTTPClient, stURL, syncthingToken))
 	prometheus.MustRegister(collector.NewStatsDeviceReport(logger, collector.HTTPClient, stURL, syncthingToken))
+	prometheus.MustRegister(collector.NewConfigDevicesReport(logger, collector.HTTPClient, stURL, syncthingToken))
 	if *syncthingFoldersID != "" {
 		foldersIDList := func(s *string) *[]string {
 			var list []string

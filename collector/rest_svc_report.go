@@ -170,7 +170,7 @@ func NewSVCReport(logger *slog.Logger, client *http.Client, url *url.URL, token 
 				[]string{"uniqueID", "version", "longVersion", "platform"},
 				nil,
 			),
-			Value: func(svcData *contract.Report) float64 {
+			Value: func(_ *contract.Report) float64 {
 				// Leave this parameter for backward compatibility with versions < v0.3.0 of grafana dashboards
 				return float64(1)
 			},
