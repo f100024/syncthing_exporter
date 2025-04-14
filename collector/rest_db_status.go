@@ -285,8 +285,8 @@ func (c *DBStatusMetrics) fetchDataAndDecode() map[string]DBStatusResponse {
 
 		res, err := c.client.Do(request)
 		if err != nil {
-			message = fmt.Sprintf("Request %s://%s%s%s: failed with code %d",
-				request.URL.Scheme, request.URL.Host, request.URL.Path, request.URL.RawQuery, res.StatusCode)
+			message = fmt.Sprintf("Request %s://%s%s%s: failed with code %s",
+				request.URL.Scheme, request.URL.Host, request.URL.Path, request.URL.RawQuery, err)
 			c.logger.Error(message)
 			continue
 		}
