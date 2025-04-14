@@ -1,3 +1,7 @@
+## 0.3.12 / 2025-04-14
+---
+* Fix "Docker instances crashing, seemingly at random" (#30)
+* Minor fixes
 ## 0.3.11 / 2025-04-11
 ---
 * Added support /rest/config/devices (#29)
