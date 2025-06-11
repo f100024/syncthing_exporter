@@ -34,6 +34,7 @@ syncthing.uri       | SYNCTHING_URI       |     +    | HTTP API address of Synct
 syncthing.token     | SYNCTHING_TOKEN     |     +    | Token for authentification Syncthing HTTP API
 syncthing.timeout   | SYNCTHING_TIMEOUT   |     -    | Timeout for trying to get stats from Syncthing
 syncthing.foldersid | SYNCTHING_FOLDERSID |     -    | List of ids of folders, delimeter is ','
+syncthing.endpoints | SYNCTHING_ENDPOINTS |     -    | Custom list of endpoints svc_report,system_connections,stats_device,config_devices, delimeter is ','
 
 ### What's and how exported
 
