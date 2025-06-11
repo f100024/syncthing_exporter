@@ -105,6 +105,14 @@ func NewDBStatusReport(logger *slog.Logger, client *http.Client, url *url.URL, t
 					[]string{"folderID"},
 					nil),
 			},
+			"global_files": {
+				Type: prometheus.GaugeValue,
+				Desc: prometheus.NewDesc(
+					prometheus.BuildFQName(namespace, subsystem, "global_files"),
+					"Number of files globally.",
+					[]string{"folderID"},
+					nil),
+			},
 			"global_symlinks": {
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
@@ -333,6 +341,7 @@ func (c *DBStatusMetrics) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(c.numericalMetrics["global_bytes"].Desc, c.numericalMetrics["global_bytes"].Type, response[folderid].GlobalBytes, folderid)
 		ch <- prometheus.MustNewConstMetric(c.numericalMetrics["global_deleted"].Desc, c.numericalMetrics["global_deleted"].Type, response[folderid].GlobalDeleted, folderid)
 		ch <- prometheus.MustNewConstMetric(c.numericalMetrics["global_directories"].Desc, c.numericalMetrics["global_directories"].Type, response[folderid].GlobalDirectories, folderid)
+		ch <- prometheus.MustNewConstMetric(c.numericalMetrics["global_files"].Desc, c.numericalMetrics["global_files"].Type, response[folderid].GlobalFiles, folderid)
 		ch <- prometheus.MustNewConstMetric(c.numericalMetrics["global_symlinks"].Desc, c.numericalMetrics["global_symlinks"].Type, response[folderid].GlobalSymlinks, folderid)
 		ch <- prometheus.MustNewConstMetric(c.numericalMetrics["global_total_items"].Desc, c.numericalMetrics["global_total_items"].Type, response[folderid].GlobalTotalItems, folderid)
 
