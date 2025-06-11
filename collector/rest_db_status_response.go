@@ -7,6 +7,7 @@ type DBStatusResponse struct {
 	GlobalBytes       float64 `json:"globalBytes"`
 	GlobalDeleted     float64 `json:"globalDeleted"`
 	GlobalDirectories float64 `json:"globalDirectories"`
+	GlobalFiles       float64 `json:"globalFiles"`
 	GlobalSymlinks    float64 `json:"globalSymlinks"`
 	GlobalTotalItems  float64 `json:"globalTotalItems"`
 

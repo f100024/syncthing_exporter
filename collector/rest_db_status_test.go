@@ -53,6 +53,9 @@ func TestNewDBStatusReport(t *testing.T) {
 	# HELP syncthing_rest_db_status_global_symlinks Number of symlinks globally.
 	# TYPE syncthing_rest_db_status_global_symlinks gauge
 	syncthing_rest_db_status_global_symlinks{folderID="aaaaa-bb11b"} 0
+	# HELP syncthing_rest_db_status_global_files Number of files globally.
+	# TYPE syncthing_rest_db_status_global_files gauge
+	syncthing_rest_db_status_global_files{folderID="aaaaa-bb11b"} 694624
 	# HELP syncthing_rest_db_status_global_total_items Number of total items globally.
 	# TYPE syncthing_rest_db_status_global_total_items gauge
 	syncthing_rest_db_status_global_total_items{folderID="aaaaa-bb11b"} 1.197108e+06
