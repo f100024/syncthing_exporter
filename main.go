@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"slices"
 	"strings"
 
 	"github.com/f100024/syncthing_exporter/collector"
@@ -54,6 +55,11 @@ func main() {
 			"ID of folders for getting db status. Environment variable: SYNCTHING_FOLDERSID").
 			Envar("SYNCTHING_FOLDERSID").
 			String()
+
+		syncthingEndpoints = kingpin.Flag("syncthing.endpoints",
+			"Choose endpoints(comma delimiter): svc_report,system_connections,stats_device,config_devices").
+			Envar("SYNCTHING_ENDPOINTS").
+			String()
 	)
 
 	promslogConfig := &promslog.Config{Style: "slog"}
@@ -76,10 +82,27 @@ func main() {
 	versionMetric := clientVersion.NewCollector(Name)
 	prometheus.MustRegister(versionMetric)
 
-	prometheus.MustRegister(collector.NewSVCReport(logger, collector.HTTPClient, stURL, syncthingToken))
-	prometheus.MustRegister(collector.NewSCReport(logger, collector.HTTPClient, stURL, syncthingToken))
-	prometheus.MustRegister(collector.NewStatsDeviceReport(logger, collector.HTTPClient, stURL, syncthingToken))
-	prometheus.MustRegister(collector.NewConfigDevicesReport(logger, collector.HTTPClient, stURL, syncthingToken))
+	if *syncthingEndpoints != "" {
+		customEndpoints := strings.Split(*syncthingEndpoints, ",")
+		if slices.Contains(customEndpoints, "svc_report") {
+			prometheus.MustRegister(collector.NewSVCReport(logger, collector.HTTPClient, stURL, syncthingToken))
+		}
+		if slices.Contains(customEndpoints, "system_connections") {
+			prometheus.MustRegister(collector.NewSCReport(logger, collector.HTTPClient, stURL, syncthingToken))
+		}
+		if slices.Contains(customEndpoints, "stats_device") {
+			prometheus.MustRegister(collector.NewStatsDeviceReport(logger, collector.HTTPClient, stURL, syncthingToken))
+		}
+		if slices.Contains(customEndpoints, "config_devices") {
+			prometheus.MustRegister(collector.NewConfigDevicesReport(logger, collector.HTTPClient, stURL, syncthingToken))
+		}
+	} else {
+		prometheus.MustRegister(collector.NewSVCReport(logger, collector.HTTPClient, stURL, syncthingToken))
+		prometheus.MustRegister(collector.NewSCReport(logger, collector.HTTPClient, stURL, syncthingToken))
+		prometheus.MustRegister(collector.NewStatsDeviceReport(logger, collector.HTTPClient, stURL, syncthingToken))
+		prometheus.MustRegister(collector.NewConfigDevicesReport(logger, collector.HTTPClient, stURL, syncthingToken))
+	}
+
 	if *syncthingFoldersID != "" {
 		foldersIDList := func(s *string) *[]string {
 			var list []string

@@ -1,3 +1,10 @@
+## 0.3.13 / 2025-06-11
+---
+* Added ability to choose custom endpoints for gathering metrics `--endpoints`
+* Fix missed parameter `global_files`, Thanks @Emily3403 (#34)
+* Update some dependencies
+* Bump go version to 1.24.4
+* Update docker image
 ## 0.3.12 / 2025-04-14
 ---
 * Fix "Docker instances crashing, seemingly at random" (#30)
