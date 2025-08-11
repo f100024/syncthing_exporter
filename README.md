@@ -1,3 +1,12 @@
+
+## Notice
+```
+If you would just grab metrics, perhaps you need the `/metrics` endpoint added to `syncthing` in version ~`1.24.0`.
+Links:
+https://github.com/syncthing/syncthing/pull/9003
+https://docs.syncthing.net/users/metrics
+```
+
 # Syncthing exporter
 
 ### Build and run exporter

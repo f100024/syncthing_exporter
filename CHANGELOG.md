@@ -1,3 +1,8 @@
+## 0.3.14 / 2025-08-11
+---
+* Fix CVE-2025-47907
+* Bump go version to 1.24.6
+* Update docker image
 ## 0.3.13 / 2025-06-11
 ---
 * Added ability to choose custom endpoints for gathering metrics `--endpoints`
