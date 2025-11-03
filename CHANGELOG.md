@@ -1,3 +1,7 @@
+## 0.3.15 / 2025-11-03
+---
+* Bump go version to 1.25.3
+* Update dependecies
 ## 0.3.14 / 2025-08-11
 ---
 * Fix CVE-2025-47907
