@@ -1,3 +1,9 @@
+## 0.3.17 / 2025-12-04
+---
+* Bump go version to 1.25.6
+* Update dependecies
+* Fixed GO-2026-4340,GO-2026-4341,GO-2026-4342
+* Bump alpine to 3.23
 ## 0.3.16 / 2025-12-04
 ---
 * Bump go version to 1.25.5
