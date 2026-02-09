@@ -1,4 +1,8 @@
-## 0.3.17 / 2025-12-04
+## 0.3.18 / 2026-02-09
+---
+* Bump go version to 1.25.7 (Fixed GO-2026-4337)
+* Update dependecies
+## 0.3.17 / 2025-02-02
 ---
 * Bump go version to 1.25.6
 * Update dependecies
